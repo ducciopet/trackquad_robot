@@ -61,9 +61,9 @@
   <!-- Link wheel -->
   <link name="wheel">
     <inertial>
-      <origin xyz="1.92587e-20 -5.69643e-18 -0.0225" rpy="0 0 0"/>
+      <origin xyz="1.92585e-20 -5.69643e-18 -0.0225" rpy="0 0 0"/>
       <mass value="0.1"/>
-      <inertia ixx="2.26562e-05" ixy="-3.91426e-29" ixz="-2.96573e-28" iyy="2.26562e-05" iyz="-6.44556e-28" izz="1.15625e-05"/>
+      <inertia ixx="2.26562e-05" ixy="2.61901e-52" ixz="-5.75941e-28" iyy="2.26562e-05" iyz="-1.22423e-27" izz="1.15625e-05"/>
     </inertial>
     <!-- Part wheel -->
     <visual>
@@ -93,13 +93,13 @@
   <!-- Link wheel_2 -->
   <link name="wheel_2">
     <inertial>
-      <origin xyz="1.3897e-17 1.24246e-18 -0.0225" rpy="0 0 0"/>
+      <origin xyz="1.92582e-20 1.24246e-18 -0.0225" rpy="0 0 0"/>
       <mass value="0.1"/>
-      <inertia ixx="2.26562e-05" ixy="-4.95421e-23" ixz="1.53287e-28" iyy="2.26563e-05" iyz="-2.17792e-27" izz="1.15625e-05"/>
+      <inertia ixx="2.26562e-05" ixy="-1.62025e-50" ixz="2.59269e-28" iyy="2.26562e-05" iyz="-1.1746e-27" izz="1.15625e-05"/>
     </inertial>
     <!-- Part wheel_2 -->
     <visual>
-      <origin xyz="1.38778e-17 0 -0.045" rpy="-1.5708 -1.5708 0"/>
+      <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
         <mesh filename="package://assets/wheel.stl"/>
       </geometry>
@@ -108,7 +108,7 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="1.38778e-17 0 -0.045" rpy="-1.5708 -1.5708 0"/>
+      <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
         <mesh filename="package://assets/wheel.stl"/>
       </geometry>
@@ -125,13 +125,13 @@
   <!-- Link wheel_3 -->
   <link name="wheel_3">
     <inertial>
-      <origin xyz="2.77748e-17 -5.69643e-18 -0.0225" rpy="0 0 0"/>
+      <origin xyz="1.92578e-20 -5.69643e-18 -0.0225" rpy="0 0 0"/>
       <mass value="0.1"/>
-      <inertia ixx="2.26562e-05" ixy="2.90395e-23" ixz="3.86675e-29" iyy="2.26563e-05" iyz="1.51625e-27" izz="1.15625e-05"/>
+      <inertia ixx="2.26562e-05" ixy="0" ixz="-3.82571e-28" iyy="2.26562e-05" iyz="2.39882e-27" izz="1.15625e-05"/>
     </inertial>
     <!-- Part wheel_3 -->
     <visual>
-      <origin xyz="2.77556e-17 -6.93889e-18 -0.045" rpy="-1.5708 -1.5708 0"/>
+      <origin xyz="0 -6.93889e-18 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
         <mesh filename="package://assets/wheel.stl"/>
       </geometry>
@@ -140,7 +140,7 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="2.77556e-17 -6.93889e-18 -0.045" rpy="-1.5708 -1.5708 0"/>
+      <origin xyz="0 -6.93889e-18 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
         <mesh filename="package://assets/wheel.stl"/>
       </geometry>
@@ -157,9 +157,9 @@
   <!-- Link wheel_4 -->
   <link name="wheel_4">
     <inertial>
-      <origin xyz="1.92591e-20 1.24246e-18 -0.0225" rpy="0 0 0"/>
+      <origin xyz="1.9259e-20 1.24246e-18 -0.0225" rpy="0 0 0"/>
       <mass value="0.1"/>
-      <inertia ixx="2.26562e-05" ixy="-1.85776e-29" ixz="2.51708e-28" iyy="2.26562e-05" iyz="1.73765e-27" izz="1.15625e-05"/>
+      <inertia ixx="2.26562e-05" ixy="-7.49632e-29" ixz="1.74212e-28" iyy="2.26562e-05" iyz="1.22423e-27" izz="1.15625e-05"/>
     </inertial>
     <!-- Part wheel_4 -->
     <visual>
