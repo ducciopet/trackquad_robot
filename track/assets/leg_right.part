@@ -1,13 +1,13 @@
 {
     "configuration": "default",
     "documentId": "1f813eeba4ab32efffd87c1d",
-    "documentMicroversion": "59724fab8729e848e9ba0ca4",
-    "elementId": "a28a053e3e16741dfde9b724",
+    "documentMicroversion": "92284f1122ea8fb3312690d0",
+    "elementId": "4e8d755e61d3c0a99fad3796",
     "fullConfiguration": "default",
-    "id": "M2Pcg8+iUO/blVPzq",
+    "id": "M/VvR9V6aG9NuwA5P",
     "isStandardContent": false,
-    "name": "wheel <1>",
-    "partId": "JHD",
+    "name": "leg_right <1>",
+    "partId": "JND",
     "suppressed": false,
     "type": "Part"
 }
