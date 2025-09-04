@@ -1,13 +1,13 @@
 {
     "configuration": "default",
     "documentId": "1f813eeba4ab32efffd87c1d",
-    "documentMicroversion": "da84284280594569a583daad",
-    "elementId": "2061bf1597dba645e1a02d2e",
+    "documentMicroversion": "c68bbc3e2a7ddb003ce0d07c",
+    "elementId": "4d0ed4dfc1a52ff77d74ea5a",
     "fullConfiguration": "default",
-    "id": "MaCP+yE/OnEg4sHZH",
+    "id": "MJkYBCXr416w8E2vr",
     "isStandardContent": false,
     "name": "body_left <1>",
-    "partId": "JHD",
+    "partId": "JnD",
     "suppressed": false,
     "type": "Part"
 }
