@@ -40,7 +40,7 @@
       <material name="white"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/Base.stl"/>
+        <mesh filename="package://assets/Base.stl"/>
         <!-- <box size="0.353 0.090 0.066" /> -->
       </geometry>
     </visual>
@@ -68,7 +68,7 @@
       <material name="white"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/Module_left_hind.stl"/>
+        <mesh filename="package://assets/Module_left_hind.stl"/>
       </geometry>
     </visual>
     <collision>
@@ -121,7 +121,7 @@
       <material name="white"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/Module_left_hind.stl"/>
+        <mesh filename="package://assets/Module_left_hind.stl"/>
       </geometry>
     </visual>
     <collision>
@@ -158,7 +158,7 @@
     <visual>
       <origin xyz="2.26711e-87 3.26265e-55 4.41854e-07" rpy="1.67587e-64 -0 3.14159"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/body_left.stl"/>
+        <mesh filename="package://assets/body_left.stl"/>
       </geometry>
       <material name="body_left_material">
         <color rgba="0.647059 0.647059 0.647059 1"/>
@@ -167,7 +167,7 @@
     <collision>
       <origin xyz="2.26711e-87 3.26265e-55 4.41854e-07" rpy="1.67587e-64 -0 3.14159"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/body_left.stl"/>
+        <mesh filename="package://assets/body_left.stl"/>
       </geometry>
     </collision>
   </link>
@@ -182,7 +182,7 @@
     <visual>
       <origin xyz="0 -6.93889e-18 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -191,7 +191,7 @@
     <collision>
       <origin xyz="0 -6.93889e-18 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -214,7 +214,7 @@
     <visual>
       <origin xyz="0 -9.40354e-19 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_2_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -223,7 +223,7 @@
     <collision>
       <origin xyz="0 -9.40354e-19 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -246,7 +246,7 @@
     <visual>
       <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_3_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -255,7 +255,7 @@
     <collision>
       <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -278,7 +278,7 @@
     <visual>
       <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_4_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -287,7 +287,7 @@
     <collision>
       <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -353,7 +353,7 @@
       <material name="white"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/Module_left_front.stl"/>
+        <mesh filename="package://assets/Module_left_front.stl"/>
       </geometry>
     </visual>
     <collision>
@@ -406,7 +406,7 @@
       <material name="white"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/Module_left_front.stl"/>
+        <mesh filename="package://assets/Module_left_front.stl"/>
       </geometry>
     </visual>
     <collision>
@@ -474,7 +474,7 @@
     <visual>
       <origin xyz="2.26711e-87 3.26265e-55 4.41854e-07" rpy="1.67587e-64 -0 3.14159"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/body_left.stl"/>
+        <mesh filename="package://assets/body_left.stl"/>
       </geometry>
       <material name="body_left_material">
         <color rgba="0.647059 0.647059 0.647059 1"/>
@@ -483,7 +483,7 @@
     <collision>
       <origin xyz="2.26711e-87 3.26265e-55 4.41854e-07" rpy="1.67587e-64 -0 3.14159"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/body_left.stl"/>
+        <mesh filename="package://assets/body_left.stl"/>
       </geometry>
     </collision>
   </link>
@@ -498,7 +498,7 @@
     <visual>
       <origin xyz="0 -6.93889e-18 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -507,7 +507,7 @@
     <collision>
       <origin xyz="0 -6.93889e-18 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -530,7 +530,7 @@
     <visual>
       <origin xyz="0 -9.40354e-19 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_2_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -539,7 +539,7 @@
     <collision>
       <origin xyz="0 -9.40354e-19 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -562,7 +562,7 @@
     <visual>
       <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_3_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -571,7 +571,7 @@
     <collision>
       <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -594,7 +594,7 @@
     <visual>
       <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_4_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -603,7 +603,7 @@
     <collision>
       <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -633,7 +633,7 @@
       <material name="white"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/Module_right_front.stl"/>
+        <mesh filename="package://assets/Module_right_front.stl"/>
       </geometry>
     </visual>
     <collision>
@@ -689,7 +689,7 @@
       <material name="white"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/Module_right_front.stl"/>
+        <mesh filename="package://assets/Module_right_front.stl"/>
       </geometry>
     </visual>
     <collision>
@@ -753,7 +753,7 @@
     <visual>
       <origin xyz="1.06911e-50 -4.41854e-07 3.98827e-51" rpy="-1.5708 5.05322e-16 -3.14159"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/body_right.stl"/>
+        <mesh filename="package://assets/body_right.stl"/>
       </geometry>
       <material name="body_right_material">
         <color rgba="0.647059 0.647059 0.647059 1"/>
@@ -762,7 +762,7 @@
     <collision>
       <origin xyz="1.06911e-50 -4.41854e-07 3.98827e-51" rpy="-1.5708 5.05322e-16 -3.14159"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/body_right.stl"/>
+        <mesh filename="package://assets/body_right.stl"/>
       </geometry>
     </collision>
   </link>
@@ -777,7 +777,7 @@
     <visual>
       <origin xyz="-1.38778e-17 -3.46945e-18 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -786,7 +786,7 @@
     <collision>
       <origin xyz="-1.38778e-17 -3.46945e-18 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -809,7 +809,7 @@
     <visual>
       <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_2_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -818,7 +818,7 @@
     <collision>
       <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -841,7 +841,7 @@
     <visual>
       <origin xyz="1.73472e-18 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_3_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -850,7 +850,7 @@
     <collision>
       <origin xyz="1.73472e-18 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -873,7 +873,7 @@
     <visual>
       <origin xyz="0 1.38778e-17 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_4_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -882,7 +882,7 @@
     <collision>
       <origin xyz="0 1.38778e-17 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -917,7 +917,7 @@
       <material name="white"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/Module_right_hind.stl"/>
+        <mesh filename="package://assets/Module_right_hind.stl"/>
       </geometry>
     </visual>
     <collision>
@@ -970,7 +970,7 @@
       <material name="white"/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/Module_right_hind.stl"/>
+        <mesh filename="package://assets/Module_right_hind.stl"/>
       </geometry>
     </visual>
     <collision>
@@ -1035,7 +1035,7 @@
     <visual>
       <origin xyz="1.06911e-50 -4.41854e-07 3.98827e-51" rpy="-1.5708 5.05322e-16 -3.14159"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/body_right.stl"/>
+        <mesh filename="package://assets/body_right.stl"/>
       </geometry>
       <material name="body_right_material">
         <color rgba="0.647059 0.647059 0.647059 1"/>
@@ -1044,7 +1044,7 @@
     <collision>
       <origin xyz="1.06911e-50 -4.41854e-07 3.98827e-51" rpy="-1.5708 5.05322e-16 -3.14159"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/body_right.stl"/>
+        <mesh filename="package://assets/body_right.stl"/>
       </geometry>
     </collision>
   </link>
@@ -1059,7 +1059,7 @@
     <visual>
       <origin xyz="-1.38778e-17 -3.46945e-18 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -1068,7 +1068,7 @@
     <collision>
       <origin xyz="-1.38778e-17 -3.46945e-18 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -1091,7 +1091,7 @@
     <visual>
       <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_2_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -1100,7 +1100,7 @@
     <collision>
       <origin xyz="0 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -1123,7 +1123,7 @@
     <visual>
       <origin xyz="1.73472e-18 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_3_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -1132,7 +1132,7 @@
     <collision>
       <origin xyz="1.73472e-18 0 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
@@ -1155,7 +1155,7 @@
     <visual>
       <origin xyz="0 1.38778e-17 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
       <material name="wheel_4_material">
         <color rgba="0.615686 0.811765 0.929412 1"/>
@@ -1164,7 +1164,7 @@
     <collision>
       <origin xyz="0 1.38778e-17 -0.045" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find trackquad)/assets/wheel.stl"/>
+        <mesh filename="package://assets/wheel.stl"/>
       </geometry>
     </collision>
   </link>
