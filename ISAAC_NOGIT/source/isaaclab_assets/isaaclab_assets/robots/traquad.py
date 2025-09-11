@@ -10,7 +10,7 @@ from isaaclab.utils.assets import ISAACLAB_NUCLEUS_DIR
 # Configuration - Actuators.
 ##
 
-OMNIQUAD_CFG = ArticulationCfg(
+TRAQUAD_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
         usd_path="/home/duccio/Desktop/trackquad_robot/IsaacLab/isaac_model/traquad/traquad.usd",
         activate_contact_sensors=True,
@@ -32,33 +32,38 @@ OMNIQUAD_CFG = ArticulationCfg(
         pos=(0.0, 0.0, 0.4),
         joint_pos={
             # Left legs
-            "LF_HFE": 2.0,
-            "LH_HFE": -2.0,
+            "LF_HFE": 1.13,
+            "LH_HFE": -1.13,
             
             # Right legs
-            "RF_HFE": -2.0,
-            "RH_HFE": 2.0,
+            "RF_HFE": -1.13,
+            "RH_HFE": 1.13,
             # Wheels
             "joint_1_LEFT_F": 0.0,
             "joint_2_LEFT_F": 0.0,
             "joint_3_LEFT_F": 0.0,
             "joint_4_LEFT_F": 0.0,
 
-
             "joint_1_LEFT_H": 0.0,
             "joint_2_LEFT_H": 0.0,
             "joint_3_LEFT_H": 0.0,
             "joint_4_LEFT_H": 0.0,
 
-            "joint_1_RIGHT_H": 0.0,
-            "joint_2_RIGHT_H": 0.0,
-            "joint_3_RIGHT_H": 0.0,
-            "joint_4_RIGHT_H": 0.0,
+            "joint_1_RIGHT_F": 0.0,
+            "joint_2_RIGHT_F": 0.0,
+            "joint_3_RIGHT_F": 0.0,
+            "joint_4_RIGHT_F": 0.0,
 
             "joint_1_RIGHT_H": 0.0,
             "joint_2_RIGHT_H": 0.0,
             "joint_3_RIGHT_H": 0.0,
             "joint_4_RIGHT_H": 0.0,
+
+
+            "LF_ANKLE": 0.44,
+            "LH_ANKLE": -0.44,
+            "RF_ANKLE": 0.44,
+            "RH_ANKLE": -0.44,
         },
         joint_vel={".*": 0.0},
     ),

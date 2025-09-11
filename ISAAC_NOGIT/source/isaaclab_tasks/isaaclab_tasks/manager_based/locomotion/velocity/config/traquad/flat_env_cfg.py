@@ -1,10 +1,10 @@
 from isaaclab.utils import configclass
 
-from .rough_env_cfg import OmniQuadRoughEnvCfg
+from .rough_env_cfg import TraQuadRoughEnvCfg
 
 
 @configclass
-class OmniQuadFlatEnvCfg(OmniQuadRoughEnvCfg):
+class TraQuadFlatEnvCfg(TraQuadRoughEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
@@ -23,7 +23,7 @@ class OmniQuadFlatEnvCfg(OmniQuadRoughEnvCfg):
         self.curriculum.terrain_levels = None
 
 
-class OmniQuadFlatEnvCfg_PLAY(OmniQuadFlatEnvCfg):
+class TraQuadFlatEnvCfg_PLAY(TraQuadFlatEnvCfg):
     def __post_init__(self) -> None:
         # post init of parent
         super().__post_init__()

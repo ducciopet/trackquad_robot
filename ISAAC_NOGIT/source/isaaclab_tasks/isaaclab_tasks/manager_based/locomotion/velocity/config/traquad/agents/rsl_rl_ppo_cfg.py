@@ -33,7 +33,7 @@ class TraQuadRoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
 
 
 @configclass
-class TraQuadFlatPPORunnerCfg(OmniQuadRoughPPORunnerCfg):
+class TraQuadFlatPPORunnerCfg(TraQuadRoughPPORunnerCfg):
     def __post_init__(self):
         super().__post_init__()
 

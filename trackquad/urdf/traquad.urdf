@@ -139,7 +139,7 @@
   </link>
 
   <!--joint caviglia -->
-  <joint name="joint_left_H" type="revolute">
+  <joint name="LF_ANKLE" type="revolute">
     <origin rpy="1.5708 0 1.5708" xyz="-0.19 0.05 0"/>
     <parent link="LH_UPPER_LEG"/>
     <child link="body_left_H"/>
@@ -455,7 +455,7 @@
   <!-- Lower leg link -->
 
 <!--joint caviglia -->
-  <joint name="joint_left_F" type="revolute">
+  <joint name="LH_ANKLE" type="revolute">
     <origin rpy="-1.5708 0 1.5708" xyz="0.19 0.05 0"/>
     <parent link="LF_UPPER_LEG"/>
     <child link="body_left_F"/>
@@ -736,7 +736,7 @@
     <limit effort="2.7" lower="-3.141592" upper="3.141592" velocity="1000"/>
   </joint> -->
   <!-- Lower leg link -->
-  <joint name="joint_right_F" type="revolute">
+  <joint name="RF_ANKLE" type="revolute">
     <origin rpy="3.14159 0 1.5708" xyz="0.19 -0.05 0"/>
     <parent link="RF_UPPER_LEG"/>
     <child link="body_right_F"/>
@@ -1018,7 +1018,7 @@
   </joint> -->
   <!-- Lower leg link -->
 
-  <joint name="joint_right_H" type="revolute">
+  <joint name="RH_ANKLE" type="revolute">
     <origin rpy="0 0 1.5708" xyz="-0.19 -0.05 0"/>
     <parent link="RH_UPPER_LEG"/>
     <child link="body_right_H"/>
