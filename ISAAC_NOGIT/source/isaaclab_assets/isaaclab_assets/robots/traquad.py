@@ -12,7 +12,7 @@ from isaaclab.utils.assets import ISAACLAB_NUCLEUS_DIR
 
 OMNIQUAD_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path="/home/duccio/Desktop/trackquad_robot/IsaacLab/isaac_model/omniquad/omniquad.usd",
+        usd_path="/home/duccio/Desktop/trackquad_robot/IsaacLab/isaac_model/traquad/traquad.usd",
         activate_contact_sensors=True,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=False,
@@ -34,18 +34,31 @@ OMNIQUAD_CFG = ArticulationCfg(
             # Left legs
             "LF_HFE": 2.0,
             "LH_HFE": -2.0,
-            "LF_KFE": -1.2,
-            "LH_KFE": 1.2,
+            
             # Right legs
             "RF_HFE": -2.0,
             "RH_HFE": 2.0,
-            "RF_KFE": 1.2,
-            "RH_KFE": -1.2,
             # Wheels
-            "LF_ANKLE": 0.0,
-            "LH_ANKLE": 0.0,
-            "RF_ANKLE": 0.0,
-            "RH_ANKLE": 0.0,
+            "joint_1_LEFT_F": 0.0,
+            "joint_2_LEFT_F": 0.0,
+            "joint_3_LEFT_F": 0.0,
+            "joint_4_LEFT_F": 0.0,
+
+
+            "joint_1_LEFT_H": 0.0,
+            "joint_2_LEFT_H": 0.0,
+            "joint_3_LEFT_H": 0.0,
+            "joint_4_LEFT_H": 0.0,
+
+            "joint_1_RIGHT_H": 0.0,
+            "joint_2_RIGHT_H": 0.0,
+            "joint_3_RIGHT_H": 0.0,
+            "joint_4_RIGHT_H": 0.0,
+
+            "joint_1_RIGHT_H": 0.0,
+            "joint_2_RIGHT_H": 0.0,
+            "joint_3_RIGHT_H": 0.0,
+            "joint_4_RIGHT_H": 0.0,
         },
         joint_vel={".*": 0.0},
     ),
@@ -55,23 +68,19 @@ OMNIQUAD_CFG = ArticulationCfg(
             velocity_limit_sim=10.0,
             stiffness={
                 ".*HFE": 10.7,
-                ".*KFE": 10.7,
-            
             },
             damping={
-                ".*HFE": 0.1,
-                ".*KFE": 0.1,
-                
+                ".*HFE": 0.1,    
             },
         ),
         "wheels": ImplicitActuatorCfg(
-            joint_names_expr=[".*ANKLE"],
+            joint_names_expr=["joint*."],
             effort_limit_sim=500.0,
             velocity_limit_sim=1000.0,
             stiffness={
-                ".*ANKLE": 0.0},
+                "joint*.": 0.0},
             damping={
-                ".*ANKLE": 1.0,},
+                "joint*.": 1.0,},
         )},
     soft_joint_pos_limit_factor=0.95,
 )
