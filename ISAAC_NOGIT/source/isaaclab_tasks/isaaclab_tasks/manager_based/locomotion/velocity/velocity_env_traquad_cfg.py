@@ -105,7 +105,7 @@ class ActionsCfg:
     """Action specifications for the MDP."""
 
     joint_pos = mdp.JointPositionActionCfg(asset_name="robot", joint_names= [".*HFE"], scale=0.5, use_default_offset=True)
-    joint_vel = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["joint*."], scale=2.0, use_default_offset=True)
+    joint_vel = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["joint_2*."], scale=2.0, use_default_offset=True)
 
 
 @configclass
@@ -131,7 +131,7 @@ class ObservationsCfg:
         )
         joint_vel = ObsTerm(
             func=mdp.joint_vel_rel,
-            params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE", "joint*."])},
+            params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE", "joint_2*."])},
             noise=Unoise(n_min=-1.5, n_max=1.5))
         
         actions = ObsTerm(func=mdp.last_action)
@@ -241,12 +241,12 @@ class RewardsCfg:
         func=mdp.joint_torques_l2, 
         weight=-1.0e-5,
         params={
-            "asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE", ".*KFE"]),})
+            "asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE"]),})
     dof_acc_l2 = RewTerm(
         func=mdp.joint_acc_l2,
         weight=-2.5e-7,
         params={
-            "asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE", ".*KFE"]),},)
+            "asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE"]),},)
     action_rate_l2 = RewTerm(func=mdp.action_rate_l2, weight=-0.01)
     base_height_l2 = RewTerm(
         func=mdp.base_height_l2, 

@@ -72,10 +72,10 @@ TRAQUAD_CFG = ArticulationCfg(
             effort_limit_sim=5.0,
             velocity_limit_sim=10.0,
             stiffness={
-                ".*HFE": 10.7,
+                ".*HFE": 100,
             },
             damping={
-                ".*HFE": 0.1,    
+                ".*HFE": 1,    
             },
         ),
         "wheels": ImplicitActuatorCfg(
