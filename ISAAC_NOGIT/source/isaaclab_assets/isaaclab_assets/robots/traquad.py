@@ -68,7 +68,7 @@ TRAQUAD_CFG = ArticulationCfg(
         joint_vel={".*": 0.0},
     ),
     actuators={"legs": ImplicitActuatorCfg(
-            joint_names_expr=[".*HFE", ".*KFE"],
+            joint_names_expr=[".*HFE"],
             effort_limit_sim=5.0,
             velocity_limit_sim=10.0,
             stiffness={
@@ -79,13 +79,17 @@ TRAQUAD_CFG = ArticulationCfg(
             },
         ),
         "wheels": ImplicitActuatorCfg(
+<<<<<<< HEAD
             joint_names_expr=["joint_2*."],
+=======
+            joint_names_expr=["joint.*"],
+>>>>>>> 87e675876afe49cdbbb1f2f37701da198bc65835
             effort_limit_sim=500.0,
             velocity_limit_sim=1000.0,
             stiffness={
-                "joint*.": 0.0},
+                "joint.*": 0.0},
             damping={
-                "joint*.": 1.0,},
+                "joint.*": 1.0,},
         )},
     soft_joint_pos_limit_factor=0.95,
 )
