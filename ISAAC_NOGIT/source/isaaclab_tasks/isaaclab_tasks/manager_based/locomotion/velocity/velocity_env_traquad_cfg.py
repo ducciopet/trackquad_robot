@@ -61,7 +61,7 @@ class MySceneCfg(InteractiveSceneCfg):
     height_scanner = RayCasterCfg(
         prim_path="{ENV_REGEX_NS}/Robot/base_link",
         offset=RayCasterCfg.OffsetCfg(pos=(0.0, 0.0, 20.0)),
-        attach_yaw_only=True,
+        ray_alignment='yaw',
         pattern_cfg=patterns.GridPatternCfg(resolution=0.1, size=[1.6, 1.0]),
         debug_vis=False,
         mesh_prim_paths=["/World/ground"],
@@ -95,7 +95,7 @@ class CommandsCfg:
         heading_control_stiffness=1.0,
         debug_vis=True,
         ranges=mdp.UniformVelocityCommandCfg.Ranges(
-            lin_vel_x=(-1.0, 1.0), ang_vel_z=(-1.0, 1.0)
+            lin_vel_x=(-1.0, 1.0), lin_vel_y=(0.0, 0.0), ang_vel_z=(-1.0, 1.0)
         ),
     )
 
@@ -105,7 +105,7 @@ class ActionsCfg:
     """Action specifications for the MDP."""
 
     joint_pos = mdp.JointPositionActionCfg(asset_name="robot", joint_names= [".*HFE"], scale=0.5, use_default_offset=True)
-    joint_vel = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["joint_2*."], scale=2.0, use_default_offset=True)
+    joint_vel = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["joint_2.*"], scale=2.0, use_default_offset=True)
 
 
 @configclass
@@ -131,7 +131,7 @@ class ObservationsCfg:
         )
         joint_vel = ObsTerm(
             func=mdp.joint_vel_rel,
-            params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE", "joint_2*."])},
+            params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE", "joint_2.*"])},
             noise=Unoise(n_min=-1.5, n_max=1.5))
         
         actions = ObsTerm(func=mdp.last_action)
@@ -248,14 +248,14 @@ class RewardsCfg:
         params={
             "asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE"]),},)
     action_rate_l2 = RewTerm(func=mdp.action_rate_l2, weight=-0.01)
-    base_height_l2 = RewTerm(
+    """ base_height_l2 = RewTerm(
         func=mdp.base_height_l2, 
         weight=-0.5,
         params={
             "target_height": 0.4,
             "sensor_cfg": SceneEntityCfg("height_scanner"),
         },
-    )
+    ) """
     # joint_deviation_l1 = RewTerm(func=mdp.joint_deviation_l1, weight=-0.01)
     # feet_air_time = RewTerm(
     #     func=mdp.feet_air_time,
@@ -285,6 +285,11 @@ class TerminationsCfg:
         func=mdp.illegal_contact,
         params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names="base_link"), "threshold": 0.1},
     )
+    """ base_height = DoneTerm(func=mdp.base_height_l2, params={
+            "target_height": 0.4,
+            "sensor_cfg": SceneEntityCfg("height_scanner")}
+    ) """
+
 
 
 @configclass

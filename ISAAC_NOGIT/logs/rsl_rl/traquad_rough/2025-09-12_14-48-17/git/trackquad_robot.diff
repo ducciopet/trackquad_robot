@@ -1,0 +1,148 @@
+--- git status ---
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	deleted:    ISAAC_NOGIT/isaac_model/omniquad/new_omni.usd
+	deleted:    ISAAC_NOGIT/isaac_model/omniquad/omni_prova.usd
+	modified:   ISAAC_NOGIT/isaac_model/traquad/traquad.usd
+	modified:   ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/commands_cfg.cpython-311.pyc
+	modified:   ISAAC_NOGIT/source/isaaclab_assets/isaaclab_assets/robots/__pycache__/omniquad.cpython-311.pyc
+	modified:   ISAAC_NOGIT/source/isaaclab_assets/isaaclab_assets/robots/traquad.py
+	modified:   ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/__pycache__/velocity_env_omni_cfg.cpython-311.pyc
+	modified:   ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/traquad/__pycache__/rough_env_cfg.cpython-311.pyc
+	modified:   ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/traquad/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc
+	modified:   ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_traquad_cfg.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	ISAAC_NOGIT/isaac_model/traquad/configuration/
+	ISAAC_NOGIT/isaac_model/traquad/michael_jackson.usd
+	ISAAC_NOGIT/logs/rsl_rl/omniquad_rough/2025-09-12_10-55-00/
+	ISAAC_NOGIT/logs/rsl_rl/omniquad_rough/2025-09-12_11-52-13/
+	ISAAC_NOGIT/logs/rsl_rl/omniquad_rough/2025-09-12_11-55-30/
+	ISAAC_NOGIT/logs/rsl_rl/traquad_rough/
+	ISAAC_NOGIT/outputs/2025-09-12/10-55-00/
+	ISAAC_NOGIT/outputs/2025-09-12/10-55-45/
+	ISAAC_NOGIT/outputs/2025-09-12/11-32-57/
+	ISAAC_NOGIT/outputs/2025-09-12/11-36-14/
+	ISAAC_NOGIT/outputs/2025-09-12/11-39-06/
+	ISAAC_NOGIT/outputs/2025-09-12/11-52-13/
+	ISAAC_NOGIT/outputs/2025-09-12/11-55-30/
+	ISAAC_NOGIT/outputs/2025-09-12/11-58-02/
+	ISAAC_NOGIT/outputs/2025-09-12/12-01-11/
+	ISAAC_NOGIT/outputs/2025-09-12/12-04-28/
+	ISAAC_NOGIT/outputs/2025-09-12/12-29-43/
+	ISAAC_NOGIT/outputs/2025-09-12/12-34-02/
+	ISAAC_NOGIT/outputs/2025-09-12/14-27-47/
+	ISAAC_NOGIT/outputs/2025-09-12/14-28-09/
+	ISAAC_NOGIT/outputs/2025-09-12/14-32-57/
+	ISAAC_NOGIT/outputs/2025-09-12/14-34-19/
+	ISAAC_NOGIT/outputs/2025-09-12/14-39-53/
+	ISAAC_NOGIT/outputs/2025-09-12/14-42-22/
+	ISAAC_NOGIT/outputs/2025-09-12/14-48-17/
+	ISAAC_NOGIT/source/isaaclab_assets/isaaclab_assets/robots/__pycache__/traquad.cpython-311.pyc
+	ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/__pycache__/velocity_env_traquad_cfg.cpython-311.pyc
+
+no changes added to commit (use "git add" and/or "git commit -a") 
+
+
+--- git diff ---
+diff --git a/ISAAC_NOGIT/isaac_model/omniquad/new_omni.usd b/ISAAC_NOGIT/isaac_model/omniquad/new_omni.usd
+deleted file mode 100644
+index 6827609..0000000
+Binary files a/ISAAC_NOGIT/isaac_model/omniquad/new_omni.usd and /dev/null differ
+diff --git a/ISAAC_NOGIT/isaac_model/omniquad/omni_prova.usd b/ISAAC_NOGIT/isaac_model/omniquad/omni_prova.usd
+deleted file mode 100644
+index 939a69d..0000000
+Binary files a/ISAAC_NOGIT/isaac_model/omniquad/omni_prova.usd and /dev/null differ
+diff --git a/ISAAC_NOGIT/isaac_model/traquad/traquad.usd b/ISAAC_NOGIT/isaac_model/traquad/traquad.usd
+index 121c448..ccdde63 100644
+Binary files a/ISAAC_NOGIT/isaac_model/traquad/traquad.usd and b/ISAAC_NOGIT/isaac_model/traquad/traquad.usd differ
+diff --git a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/commands_cfg.cpython-311.pyc b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/commands_cfg.cpython-311.pyc
+index 2989066..803c338 100644
+Binary files a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/commands_cfg.cpython-311.pyc and b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/commands_cfg.cpython-311.pyc differ
+diff --git a/ISAAC_NOGIT/source/isaaclab_assets/isaaclab_assets/robots/__pycache__/omniquad.cpython-311.pyc b/ISAAC_NOGIT/source/isaaclab_assets/isaaclab_assets/robots/__pycache__/omniquad.cpython-311.pyc
+index 150d1ce..969f5ca 100644
+Binary files a/ISAAC_NOGIT/source/isaaclab_assets/isaaclab_assets/robots/__pycache__/omniquad.cpython-311.pyc and b/ISAAC_NOGIT/source/isaaclab_assets/isaaclab_assets/robots/__pycache__/omniquad.cpython-311.pyc differ
+diff --git a/ISAAC_NOGIT/source/isaaclab_assets/isaaclab_assets/robots/traquad.py b/ISAAC_NOGIT/source/isaaclab_assets/isaaclab_assets/robots/traquad.py
+index 147cb7c..7bd866d 100644
+--- a/ISAAC_NOGIT/source/isaaclab_assets/isaaclab_assets/robots/traquad.py
++++ b/ISAAC_NOGIT/source/isaaclab_assets/isaaclab_assets/robots/traquad.py
+@@ -68,7 +68,7 @@ TRAQUAD_CFG = ArticulationCfg(
+         joint_vel={".*": 0.0},
+     ),
+     actuators={"legs": ImplicitActuatorCfg(
+-            joint_names_expr=[".*HFE", ".*KFE"],
++            joint_names_expr=[".*HFE"],
+             effort_limit_sim=5.0,
+             velocity_limit_sim=10.0,
+             stiffness={
+@@ -79,13 +79,13 @@ TRAQUAD_CFG = ArticulationCfg(
+             },
+         ),
+         "wheels": ImplicitActuatorCfg(
+-            joint_names_expr=["joint*."],
++            joint_names_expr=["joint.*"],
+             effort_limit_sim=500.0,
+             velocity_limit_sim=1000.0,
+             stiffness={
+-                "joint*.": 0.0},
++                "joint.*": 0.0},
+             damping={
+-                "joint*.": 1.0,},
++                "joint.*": 1.0,},
+         )},
+     soft_joint_pos_limit_factor=0.95,
+ )
+diff --git a/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/__pycache__/velocity_env_omni_cfg.cpython-311.pyc b/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/__pycache__/velocity_env_omni_cfg.cpython-311.pyc
+index 27b8926..10be50c 100644
+Binary files a/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/__pycache__/velocity_env_omni_cfg.cpython-311.pyc and b/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/__pycache__/velocity_env_omni_cfg.cpython-311.pyc differ
+diff --git a/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/traquad/__pycache__/rough_env_cfg.cpython-311.pyc b/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/traquad/__pycache__/rough_env_cfg.cpython-311.pyc
+index 268c949..e468b20 100644
+Binary files a/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/traquad/__pycache__/rough_env_cfg.cpython-311.pyc and b/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/traquad/__pycache__/rough_env_cfg.cpython-311.pyc differ
+diff --git a/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/traquad/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc b/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/traquad/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc
+index 3781601..dfd1ec5 100644
+Binary files a/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/traquad/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc and b/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/config/traquad/agents/__pycache__/rsl_rl_ppo_cfg.cpython-311.pyc differ
+diff --git a/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_traquad_cfg.py b/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_traquad_cfg.py
+index 006b92c..dfe3583 100644
+--- a/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_traquad_cfg.py
++++ b/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_traquad_cfg.py
+@@ -61,7 +61,7 @@ class MySceneCfg(InteractiveSceneCfg):
+     height_scanner = RayCasterCfg(
+         prim_path="{ENV_REGEX_NS}/Robot/base_link",
+         offset=RayCasterCfg.OffsetCfg(pos=(0.0, 0.0, 20.0)),
+-        attach_yaw_only=True,
++        ray_alignment='yaw',
+         pattern_cfg=patterns.GridPatternCfg(resolution=0.1, size=[1.6, 1.0]),
+         debug_vis=False,
+         mesh_prim_paths=["/World/ground"],
+@@ -95,7 +95,7 @@ class CommandsCfg:
+         heading_control_stiffness=1.0,
+         debug_vis=True,
+         ranges=mdp.UniformVelocityCommandCfg.Ranges(
+-            lin_vel_x=(-1.0, 1.0), ang_vel_z=(-1.0, 1.0)
++            lin_vel_x=(-1.0, 1.0), lin_vel_y=(0.0, 0.0), ang_vel_z=(-1.0, 1.0)
+         ),
+     )
+ 
+@@ -105,7 +105,7 @@ class ActionsCfg:
+     """Action specifications for the MDP."""
+ 
+     joint_pos = mdp.JointPositionActionCfg(asset_name="robot", joint_names= [".*HFE"], scale=0.5, use_default_offset=True)
+-    joint_vel = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["joint_2*."], scale=2.0, use_default_offset=True)
++    joint_vel = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["joint_2.*"], scale=2.0, use_default_offset=True)
+ 
+ 
+ @configclass
+@@ -131,7 +131,7 @@ class ObservationsCfg:
+         )
+         joint_vel = ObsTerm(
+             func=mdp.joint_vel_rel,
+-            params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE", "joint_2*."])},
++            params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE", "joint_2.*"])},
+             noise=Unoise(n_min=-1.5, n_max=1.5))
+         
+         actions = ObsTerm(func=mdp.last_action)
