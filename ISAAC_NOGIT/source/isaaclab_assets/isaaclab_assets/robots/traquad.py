@@ -79,11 +79,7 @@ TRAQUAD_CFG = ArticulationCfg(
             },
         ),
         "wheels": ImplicitActuatorCfg(
-<<<<<<< HEAD
-            joint_names_expr=["joint_2*."],
-=======
             joint_names_expr=["joint.*"],
->>>>>>> 87e675876afe49cdbbb1f2f37701da198bc65835
             effort_limit_sim=500.0,
             velocity_limit_sim=1000.0,
             stiffness={
