@@ -12,7 +12,7 @@ from isaaclab.utils.assets import ISAACLAB_NUCLEUS_DIR
 
 TRAQUAD_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path="/home/duccio/Desktop/trackquad_robot/IsaacLab/isaac_model/traquad/traquad.usd",
+        usd_path="/home/duccio/Desktop/trackquad_robot/ISAAC_NOGIT/isaac_model/traquad/traquad.usd",
         activate_contact_sensors=True,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=False,
