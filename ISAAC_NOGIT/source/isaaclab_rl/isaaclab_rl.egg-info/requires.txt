@@ -10,12 +10,12 @@ pillow==11.2.1
 packaging<24
 
 [all]
-gym
-rsl-rl-lib==3.0.1
-skrl>=1.4.3
-rl-games@ git+https://github.com/isaac-sim/rl_games.git@python3.11
 stable-baselines3>=2.6
+rl-games@ git+https://github.com/isaac-sim/rl_games.git@python3.11
 rich
+skrl>=1.4.3
+rsl-rl-lib==3.0.1
+gym
 tqdm
 
 [rl-games]

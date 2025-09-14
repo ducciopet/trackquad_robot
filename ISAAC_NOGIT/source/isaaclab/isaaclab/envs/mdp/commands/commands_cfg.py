@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# Copyright (c) 2022-2025, The Isaac Lab Project Developers.
 # All rights reserved.
 #
 # SPDX-License-Identifier: BSD-3-Clause
@@ -14,7 +14,7 @@ from isaaclab.utils import configclass
 from .null_command import NullCommand
 from .pose_2d_command import TerrainBasedPose2dCommand, UniformPose2dCommand
 from .pose_command import UniformPoseCommand
-from .velocity_command import NormalVelocityCommand, UniformVelocityCommand
+from .velocity_command import NormalVelocityCommand, UniformVelocityCommand, ForwardVelocityCommand
 
 
 @configclass
@@ -94,6 +94,75 @@ class UniformVelocityCommandCfg(CommandTermCfg):
     # Set the scale of the visualization markers to (0.5, 0.5, 0.5)
     goal_vel_visualizer_cfg.markers["arrow"].scale = (0.5, 0.5, 0.5)
     current_vel_visualizer_cfg.markers["arrow"].scale = (0.5, 0.5, 0.5)
+
+
+@configclass
+class ForwardVelocityCommandCfg(CommandTermCfg):
+    """Configuration for velocity commands that only use forward motion and rotation.
+    
+    This command generator is designed for robots that cannot move sideways (non-holonomic),
+    such as differential drive robots, car-like robots, or legged robots with forward-only gaits.
+    """
+
+    class_type: type = ForwardVelocityCommand  # Reuse the same command class but we'll override behavior
+
+    asset_name: str = MISSING
+    """Name of the asset in the environment for which the commands are generated."""
+
+    heading_command: bool = False
+    """Whether to use heading command or angular velocity command. Defaults to False.
+    
+    If True, the angular velocity command is computed from the heading error, where the
+    target heading is sampled uniformly from provided range. Otherwise, the angular velocity
+    command is sampled uniformly from provided range.
+    """
+
+    heading_control_stiffness: float = 1.0
+    """Scale factor to convert the heading error to angular velocity command. Defaults to 1.0."""
+
+    rel_standing_envs: float = 0.0
+    """The sampled probability of environments that should be standing still. Defaults to 0.0."""
+
+    rel_heading_envs: float = 1.0
+    """The sampled probability of environments where the robots follow the heading-based angular velocity command
+    (the others follow the sampled angular velocity command). Defaults to 1.0.
+    
+    This parameter is only used if :attr:`heading_command` is True.
+    """
+
+    @configclass
+    class Ranges:
+        """Uniform distribution ranges for the velocity commands."""
+
+        lin_vel_x: tuple[float, float] = MISSING
+        """Range for the forward/backward velocity command (in m/s)."""
+
+        ang_vel_z: tuple[float, float] = MISSING
+        """Range for the angular velocity command (in rad/s)."""
+
+        heading: tuple[float, float] | None = None
+        """Range for the heading command (in rad). Defaults to None.
+        
+        This parameter is only used if :attr:`~ForwardVelocityCommandCfg.heading_command` is True.
+        """
+
+    ranges: Ranges = MISSING
+    """Distribution ranges for the velocity commands."""
+
+    goal_vel_visualizer_cfg: VisualizationMarkersCfg = GREEN_ARROW_X_MARKER_CFG.replace(
+        prim_path="/Visuals/Command/velocity_goal"
+    )
+    """The configuration for the goal velocity visualization marker. Defaults to GREEN_ARROW_X_MARKER_CFG."""
+
+    current_vel_visualizer_cfg: VisualizationMarkersCfg = BLUE_ARROW_X_MARKER_CFG.replace(
+        prim_path="/Visuals/Command/velocity_current"
+    )
+    """The configuration for the current velocity visualization marker. Defaults to BLUE_ARROW_X_MARKER_CFG."""
+
+    # Set the scale of the visualization markers to (0.5, 0.5, 0.5)
+    goal_vel_visualizer_cfg.markers["arrow"].scale = (0.5, 0.5, 0.5)
+    current_vel_visualizer_cfg.markers["arrow"].scale = (0.5, 0.5, 0.5)
+
 
 
 @configclass

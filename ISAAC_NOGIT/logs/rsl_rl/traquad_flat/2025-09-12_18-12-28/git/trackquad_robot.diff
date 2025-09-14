@@ -1,0 +1,1693 @@
+--- git status ---
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/__pycache__/rewards.cpython-311.pyc
+	modified:   ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__init__.py
+	modified:   ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/__init__.cpython-311.pyc
+	modified:   ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/commands_cfg.cpython-311.pyc
+	modified:   ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/velocity_command.cpython-311.pyc
+	modified:   ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/commands_cfg.py
+	modified:   ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/velocity_command.py
+	modified:   ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/rewards.py
+	modified:   ISAAC_NOGIT/source/isaaclab_rl/isaaclab_rl.egg-info/PKG-INFO
+	modified:   ISAAC_NOGIT/source/isaaclab_rl/isaaclab_rl.egg-info/requires.txt
+	modified:   ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/__pycache__/velocity_env_traquad_cfg.cpython-311.pyc
+	modified:   ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_traquad_cfg.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	ISAAC_NOGIT/logs/rsl_rl/traquad_flat/2025-09-12_18-05-21/
+	ISAAC_NOGIT/logs/rsl_rl/traquad_flat/2025-09-12_18-09-04/
+	ISAAC_NOGIT/logs/rsl_rl/traquad_flat/2025-09-12_18-12-28/
+	ISAAC_NOGIT/outputs/2025-09-12/18-05-21/
+	ISAAC_NOGIT/outputs/2025-09-12/18-09-04/
+	ISAAC_NOGIT/outputs/2025-09-12/18-12-28/
+
+no changes added to commit (use "git add" and/or "git commit -a") 
+
+
+--- git diff ---
+diff --git a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/__pycache__/rewards.cpython-311.pyc b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/__pycache__/rewards.cpython-311.pyc
+index 88282e4..dd9aa39 100644
+Binary files a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/__pycache__/rewards.cpython-311.pyc and b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/__pycache__/rewards.cpython-311.pyc differ
+diff --git a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__init__.py b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__init__.py
+index 97dc6af..c4c1083 100644
+--- a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__init__.py
++++ b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__init__.py
+@@ -12,6 +12,7 @@ from .commands_cfg import (
+     UniformPose2dCommandCfg,
+     UniformPoseCommandCfg,
+     UniformVelocityCommandCfg,
++    ForwardVelocityCommandCfg
+ )
+ from .null_command import NullCommand
+ from .pose_2d_command import TerrainBasedPose2dCommand, UniformPose2dCommand
+diff --git a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/__init__.cpython-311.pyc b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/__init__.cpython-311.pyc
+index ea313eb..576403b 100644
+Binary files a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/__init__.cpython-311.pyc and b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/commands_cfg.cpython-311.pyc b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/commands_cfg.cpython-311.pyc
+index 793374c..e18f9ad 100644
+Binary files a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/commands_cfg.cpython-311.pyc and b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/commands_cfg.cpython-311.pyc differ
+diff --git a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/velocity_command.cpython-311.pyc b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/velocity_command.cpython-311.pyc
+index 577c0d5..e636aba 100644
+Binary files a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/velocity_command.cpython-311.pyc and b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/__pycache__/velocity_command.cpython-311.pyc differ
+diff --git a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/commands_cfg.py b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/commands_cfg.py
+index 16ba0c3..0104980 100644
+--- a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/commands_cfg.py
++++ b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/commands_cfg.py
+@@ -1,248 +1,317 @@
+-# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+-# All rights reserved.
+-#
+-# SPDX-License-Identifier: BSD-3-Clause
+-
+-import math
+-from dataclasses import MISSING
+-
+-from isaaclab.managers import CommandTermCfg
+-from isaaclab.markers import VisualizationMarkersCfg
+-from isaaclab.markers.config import BLUE_ARROW_X_MARKER_CFG, FRAME_MARKER_CFG, GREEN_ARROW_X_MARKER_CFG
+-from isaaclab.utils import configclass
+-
+-from .null_command import NullCommand
+-from .pose_2d_command import TerrainBasedPose2dCommand, UniformPose2dCommand
+-from .pose_command import UniformPoseCommand
+-from .velocity_command import NormalVelocityCommand, UniformVelocityCommand
+-
+-
+-@configclass
+-class NullCommandCfg(CommandTermCfg):
+-    """Configuration for the null command generator."""
+-
+-    class_type: type = NullCommand
+-
+-    def __post_init__(self):
+-        """Post initialization."""
+-        # set the resampling time range to infinity to avoid resampling
+-        self.resampling_time_range = (math.inf, math.inf)
+-
+-
+-@configclass
+-class UniformVelocityCommandCfg(CommandTermCfg):
+-    """Configuration for the uniform velocity command generator."""
+-
+-    class_type: type = UniformVelocityCommand
+-
+-    asset_name: str = MISSING
+-    """Name of the asset in the environment for which the commands are generated."""
+-
+-    heading_command: bool = False
+-    """Whether to use heading command or angular velocity command. Defaults to False.
+-
+-    If True, the angular velocity command is computed from the heading error, where the
+-    target heading is sampled uniformly from provided range. Otherwise, the angular velocity
+-    command is sampled uniformly from provided range.
+-    """
+-
+-    heading_control_stiffness: float = 1.0
+-    """Scale factor to convert the heading error to angular velocity command. Defaults to 1.0."""
+-
+-    rel_standing_envs: float = 0.0
+-    """The sampled probability of environments that should be standing still. Defaults to 0.0."""
+-
+-    rel_heading_envs: float = 1.0
+-    """The sampled probability of environments where the robots follow the heading-based angular velocity command
+-    (the others follow the sampled angular velocity command). Defaults to 1.0.
+-
+-    This parameter is only used if :attr:`heading_command` is True.
+-    """
+-
+-    @configclass
+-    class Ranges:
+-        """Uniform distribution ranges for the velocity commands."""
+-
+-        lin_vel_x: tuple[float, float] = MISSING
+-        """Range for the linear-x velocity command (in m/s)."""
+-
+-        lin_vel_y: tuple[float, float] = MISSING
+-        """Range for the linear-y velocity command (in m/s)."""
+-
+-        ang_vel_z: tuple[float, float] = MISSING
+-        """Range for the angular-z velocity command (in rad/s)."""
+-
+-        heading: tuple[float, float] | None = None
+-        """Range for the heading command (in rad). Defaults to None.
+-
+-        This parameter is only used if :attr:`~UniformVelocityCommandCfg.heading_command` is True.
+-        """
+-
+-    ranges: Ranges = MISSING
+-    """Distribution ranges for the velocity commands."""
+-
+-    goal_vel_visualizer_cfg: VisualizationMarkersCfg = GREEN_ARROW_X_MARKER_CFG.replace(
+-        prim_path="/Visuals/Command/velocity_goal"
+-    )
+-    """The configuration for the goal velocity visualization marker. Defaults to GREEN_ARROW_X_MARKER_CFG."""
+-
+-    current_vel_visualizer_cfg: VisualizationMarkersCfg = BLUE_ARROW_X_MARKER_CFG.replace(
+-        prim_path="/Visuals/Command/velocity_current"
+-    )
+-    """The configuration for the current velocity visualization marker. Defaults to BLUE_ARROW_X_MARKER_CFG."""
+-
+-    # Set the scale of the visualization markers to (0.5, 0.5, 0.5)
+-    goal_vel_visualizer_cfg.markers["arrow"].scale = (0.5, 0.5, 0.5)
+-    current_vel_visualizer_cfg.markers["arrow"].scale = (0.5, 0.5, 0.5)
+-
+-
+-@configclass
+-class NormalVelocityCommandCfg(UniformVelocityCommandCfg):
+-    """Configuration for the normal velocity command generator."""
+-
+-    class_type: type = NormalVelocityCommand
+-    heading_command: bool = False  # --> we don't use heading command for normal velocity command.
+-
+-    @configclass
+-    class Ranges:
+-        """Normal distribution ranges for the velocity commands."""
+-
+-        mean_vel: tuple[float, float, float] = MISSING
+-        """Mean velocity for the normal distribution (in m/s).
+-
+-        The tuple contains the mean linear-x, linear-y, and angular-z velocity.
+-        """
+-
+-        std_vel: tuple[float, float, float] = MISSING
+-        """Standard deviation for the normal distribution (in m/s).
+-
+-        The tuple contains the standard deviation linear-x, linear-y, and angular-z velocity.
+-        """
+-
+-        zero_prob: tuple[float, float, float] = MISSING
+-        """Probability of zero velocity for the normal distribution.
+-
+-        The tuple contains the probability of zero linear-x, linear-y, and angular-z velocity.
+-        """
+-
+-    ranges: Ranges = MISSING
+-    """Distribution ranges for the velocity commands."""
+-
+-
+-@configclass
+-class UniformPoseCommandCfg(CommandTermCfg):
+-    """Configuration for uniform pose command generator."""
+-
+-    class_type: type = UniformPoseCommand
+-
+-    asset_name: str = MISSING
+-    """Name of the asset in the environment for which the commands are generated."""
+-
+-    body_name: str = MISSING
+-    """Name of the body in the asset for which the commands are generated."""
+-
+-    make_quat_unique: bool = False
+-    """Whether to make the quaternion unique or not. Defaults to False.
+-
+-    If True, the quaternion is made unique by ensuring the real part is positive.
+-    """
+-
+-    @configclass
+-    class Ranges:
+-        """Uniform distribution ranges for the pose commands."""
+-
+-        pos_x: tuple[float, float] = MISSING
+-        """Range for the x position (in m)."""
+-
+-        pos_y: tuple[float, float] = MISSING
+-        """Range for the y position (in m)."""
+-
+-        pos_z: tuple[float, float] = MISSING
+-        """Range for the z position (in m)."""
+-
+-        roll: tuple[float, float] = MISSING
+-        """Range for the roll angle (in rad)."""
+-
+-        pitch: tuple[float, float] = MISSING
+-        """Range for the pitch angle (in rad)."""
+-
+-        yaw: tuple[float, float] = MISSING
+-        """Range for the yaw angle (in rad)."""
+-
+-    ranges: Ranges = MISSING
+-    """Ranges for the commands."""
+-
+-    goal_pose_visualizer_cfg: VisualizationMarkersCfg = FRAME_MARKER_CFG.replace(prim_path="/Visuals/Command/goal_pose")
+-    """The configuration for the goal pose visualization marker. Defaults to FRAME_MARKER_CFG."""
+-
+-    current_pose_visualizer_cfg: VisualizationMarkersCfg = FRAME_MARKER_CFG.replace(
+-        prim_path="/Visuals/Command/body_pose"
+-    )
+-    """The configuration for the current pose visualization marker. Defaults to FRAME_MARKER_CFG."""
+-
+-    # Set the scale of the visualization markers to (0.1, 0.1, 0.1)
+-    goal_pose_visualizer_cfg.markers["frame"].scale = (0.1, 0.1, 0.1)
+-    current_pose_visualizer_cfg.markers["frame"].scale = (0.1, 0.1, 0.1)
+-
+-
+-@configclass
+-class UniformPose2dCommandCfg(CommandTermCfg):
+-    """Configuration for the uniform 2D-pose command generator."""
+-
+-    class_type: type = UniformPose2dCommand
+-
+-    asset_name: str = MISSING
+-    """Name of the asset in the environment for which the commands are generated."""
+-
+-    simple_heading: bool = MISSING
+-    """Whether to use simple heading or not.
+-
+-    If True, the heading is in the direction of the target position.
+-    """
+-
+-    @configclass
+-    class Ranges:
+-        """Uniform distribution ranges for the position commands."""
+-
+-        pos_x: tuple[float, float] = MISSING
+-        """Range for the x position (in m)."""
+-
+-        pos_y: tuple[float, float] = MISSING
+-        """Range for the y position (in m)."""
+-
+-        heading: tuple[float, float] = MISSING
+-        """Heading range for the position commands (in rad).
+-
+-        Used only if :attr:`simple_heading` is False.
+-        """
+-
+-    ranges: Ranges = MISSING
+-    """Distribution ranges for the position commands."""
+-
+-    goal_pose_visualizer_cfg: VisualizationMarkersCfg = GREEN_ARROW_X_MARKER_CFG.replace(
+-        prim_path="/Visuals/Command/pose_goal"
+-    )
+-    """The configuration for the goal pose visualization marker. Defaults to GREEN_ARROW_X_MARKER_CFG."""
+-
+-    # Set the scale of the visualization markers to (0.2, 0.2, 0.8)
+-    goal_pose_visualizer_cfg.markers["arrow"].scale = (0.2, 0.2, 0.8)
+-
+-
+-@configclass
+-class TerrainBasedPose2dCommandCfg(UniformPose2dCommandCfg):
+-    """Configuration for the terrain-based position command generator."""
+-
+-    class_type = TerrainBasedPose2dCommand
+-
+-    @configclass
+-    class Ranges:
+-        """Uniform distribution ranges for the position commands."""
+-
+-        heading: tuple[float, float] = MISSING
+-        """Heading range for the position commands (in rad).
+-
+-        Used only if :attr:`simple_heading` is False.
+-        """
+-
+-    ranges: Ranges = MISSING
+-    """Distribution ranges for the sampled commands."""
++# Copyright (c) 2022-2025, The Isaac Lab Project Developers.
++# All rights reserved.
++#
++# SPDX-License-Identifier: BSD-3-Clause
++
++import math
++from dataclasses import MISSING
++
++from isaaclab.managers import CommandTermCfg
++from isaaclab.markers import VisualizationMarkersCfg
++from isaaclab.markers.config import BLUE_ARROW_X_MARKER_CFG, FRAME_MARKER_CFG, GREEN_ARROW_X_MARKER_CFG
++from isaaclab.utils import configclass
++
++from .null_command import NullCommand
++from .pose_2d_command import TerrainBasedPose2dCommand, UniformPose2dCommand
++from .pose_command import UniformPoseCommand
++from .velocity_command import NormalVelocityCommand, UniformVelocityCommand, ForwardVelocityCommand
++
++
++@configclass
++class NullCommandCfg(CommandTermCfg):
++    """Configuration for the null command generator."""
++
++    class_type: type = NullCommand
++
++    def __post_init__(self):
++        """Post initialization."""
++        # set the resampling time range to infinity to avoid resampling
++        self.resampling_time_range = (math.inf, math.inf)
++
++
++@configclass
++class UniformVelocityCommandCfg(CommandTermCfg):
++    """Configuration for the uniform velocity command generator."""
++
++    class_type: type = UniformVelocityCommand
++
++    asset_name: str = MISSING
++    """Name of the asset in the environment for which the commands are generated."""
++
++    heading_command: bool = False
++    """Whether to use heading command or angular velocity command. Defaults to False.
++
++    If True, the angular velocity command is computed from the heading error, where the
++    target heading is sampled uniformly from provided range. Otherwise, the angular velocity
++    command is sampled uniformly from provided range.
++    """
++
++    heading_control_stiffness: float = 1.0
++    """Scale factor to convert the heading error to angular velocity command. Defaults to 1.0."""
++
++    rel_standing_envs: float = 0.0
++    """The sampled probability of environments that should be standing still. Defaults to 0.0."""
++
++    rel_heading_envs: float = 1.0
++    """The sampled probability of environments where the robots follow the heading-based angular velocity command
++    (the others follow the sampled angular velocity command). Defaults to 1.0.
++
++    This parameter is only used if :attr:`heading_command` is True.
++    """
++
++    @configclass
++    class Ranges:
++        """Uniform distribution ranges for the velocity commands."""
++
++        lin_vel_x: tuple[float, float] = MISSING
++        """Range for the linear-x velocity command (in m/s)."""
++
++        lin_vel_y: tuple[float, float] = MISSING
++        """Range for the linear-y velocity command (in m/s)."""
++
++        ang_vel_z: tuple[float, float] = MISSING
++        """Range for the angular-z velocity command (in rad/s)."""
++
++        heading: tuple[float, float] | None = None
++        """Range for the heading command (in rad). Defaults to None.
++
++        This parameter is only used if :attr:`~UniformVelocityCommandCfg.heading_command` is True.
++        """
++
++    ranges: Ranges = MISSING
++    """Distribution ranges for the velocity commands."""
++
++    goal_vel_visualizer_cfg: VisualizationMarkersCfg = GREEN_ARROW_X_MARKER_CFG.replace(
++        prim_path="/Visuals/Command/velocity_goal"
++    )
++    """The configuration for the goal velocity visualization marker. Defaults to GREEN_ARROW_X_MARKER_CFG."""
++
++    current_vel_visualizer_cfg: VisualizationMarkersCfg = BLUE_ARROW_X_MARKER_CFG.replace(
++        prim_path="/Visuals/Command/velocity_current"
++    )
++    """The configuration for the current velocity visualization marker. Defaults to BLUE_ARROW_X_MARKER_CFG."""
++
++    # Set the scale of the visualization markers to (0.5, 0.5, 0.5)
++    goal_vel_visualizer_cfg.markers["arrow"].scale = (0.5, 0.5, 0.5)
++    current_vel_visualizer_cfg.markers["arrow"].scale = (0.5, 0.5, 0.5)
++
++
++@configclass
++class ForwardVelocityCommandCfg(CommandTermCfg):
++    """Configuration for velocity commands that only use forward motion and rotation.
++    
++    This command generator is designed for robots that cannot move sideways (non-holonomic),
++    such as differential drive robots, car-like robots, or legged robots with forward-only gaits.
++    """
++
++    class_type: type = ForwardVelocityCommand  # Reuse the same command class but we'll override behavior
++
++    asset_name: str = MISSING
++    """Name of the asset in the environment for which the commands are generated."""
++
++    heading_command: bool = False
++    """Whether to use heading command or angular velocity command. Defaults to False.
++    
++    If True, the angular velocity command is computed from the heading error, where the
++    target heading is sampled uniformly from provided range. Otherwise, the angular velocity
++    command is sampled uniformly from provided range.
++    """
++
++    heading_control_stiffness: float = 1.0
++    """Scale factor to convert the heading error to angular velocity command. Defaults to 1.0."""
++
++    rel_standing_envs: float = 0.0
++    """The sampled probability of environments that should be standing still. Defaults to 0.0."""
++
++    rel_heading_envs: float = 1.0
++    """The sampled probability of environments where the robots follow the heading-based angular velocity command
++    (the others follow the sampled angular velocity command). Defaults to 1.0.
++    
++    This parameter is only used if :attr:`heading_command` is True.
++    """
++
++    @configclass
++    class Ranges:
++        """Uniform distribution ranges for the velocity commands."""
++
++        lin_vel_x: tuple[float, float] = MISSING
++        """Range for the forward/backward velocity command (in m/s)."""
++
++        ang_vel_z: tuple[float, float] = MISSING
++        """Range for the angular velocity command (in rad/s)."""
++
++        heading: tuple[float, float] | None = None
++        """Range for the heading command (in rad). Defaults to None.
++        
++        This parameter is only used if :attr:`~ForwardVelocityCommandCfg.heading_command` is True.
++        """
++
++    ranges: Ranges = MISSING
++    """Distribution ranges for the velocity commands."""
++
++    goal_vel_visualizer_cfg: VisualizationMarkersCfg = GREEN_ARROW_X_MARKER_CFG.replace(
++        prim_path="/Visuals/Command/velocity_goal"
++    )
++    """The configuration for the goal velocity visualization marker. Defaults to GREEN_ARROW_X_MARKER_CFG."""
++
++    current_vel_visualizer_cfg: VisualizationMarkersCfg = BLUE_ARROW_X_MARKER_CFG.replace(
++        prim_path="/Visuals/Command/velocity_current"
++    )
++    """The configuration for the current velocity visualization marker. Defaults to BLUE_ARROW_X_MARKER_CFG."""
++
++    # Set the scale of the visualization markers to (0.5, 0.5, 0.5)
++    goal_vel_visualizer_cfg.markers["arrow"].scale = (0.5, 0.5, 0.5)
++    current_vel_visualizer_cfg.markers["arrow"].scale = (0.5, 0.5, 0.5)
++
++
++
++@configclass
++class NormalVelocityCommandCfg(UniformVelocityCommandCfg):
++    """Configuration for the normal velocity command generator."""
++
++    class_type: type = NormalVelocityCommand
++    heading_command: bool = False  # --> we don't use heading command for normal velocity command.
++
++    @configclass
++    class Ranges:
++        """Normal distribution ranges for the velocity commands."""
++
++        mean_vel: tuple[float, float, float] = MISSING
++        """Mean velocity for the normal distribution (in m/s).
++
++        The tuple contains the mean linear-x, linear-y, and angular-z velocity.
++        """
++
++        std_vel: tuple[float, float, float] = MISSING
++        """Standard deviation for the normal distribution (in m/s).
++
++        The tuple contains the standard deviation linear-x, linear-y, and angular-z velocity.
++        """
++
++        zero_prob: tuple[float, float, float] = MISSING
++        """Probability of zero velocity for the normal distribution.
++
++        The tuple contains the probability of zero linear-x, linear-y, and angular-z velocity.
++        """
++
++    ranges: Ranges = MISSING
++    """Distribution ranges for the velocity commands."""
++
++
++@configclass
++class UniformPoseCommandCfg(CommandTermCfg):
++    """Configuration for uniform pose command generator."""
++
++    class_type: type = UniformPoseCommand
++
++    asset_name: str = MISSING
++    """Name of the asset in the environment for which the commands are generated."""
++
++    body_name: str = MISSING
++    """Name of the body in the asset for which the commands are generated."""
++
++    make_quat_unique: bool = False
++    """Whether to make the quaternion unique or not. Defaults to False.
++
++    If True, the quaternion is made unique by ensuring the real part is positive.
++    """
++
++    @configclass
++    class Ranges:
++        """Uniform distribution ranges for the pose commands."""
++
++        pos_x: tuple[float, float] = MISSING
++        """Range for the x position (in m)."""
++
++        pos_y: tuple[float, float] = MISSING
++        """Range for the y position (in m)."""
++
++        pos_z: tuple[float, float] = MISSING
++        """Range for the z position (in m)."""
++
++        roll: tuple[float, float] = MISSING
++        """Range for the roll angle (in rad)."""
++
++        pitch: tuple[float, float] = MISSING
++        """Range for the pitch angle (in rad)."""
++
++        yaw: tuple[float, float] = MISSING
++        """Range for the yaw angle (in rad)."""
++
++    ranges: Ranges = MISSING
++    """Ranges for the commands."""
++
++    goal_pose_visualizer_cfg: VisualizationMarkersCfg = FRAME_MARKER_CFG.replace(prim_path="/Visuals/Command/goal_pose")
++    """The configuration for the goal pose visualization marker. Defaults to FRAME_MARKER_CFG."""
++
++    current_pose_visualizer_cfg: VisualizationMarkersCfg = FRAME_MARKER_CFG.replace(
++        prim_path="/Visuals/Command/body_pose"
++    )
++    """The configuration for the current pose visualization marker. Defaults to FRAME_MARKER_CFG."""
++
++    # Set the scale of the visualization markers to (0.1, 0.1, 0.1)
++    goal_pose_visualizer_cfg.markers["frame"].scale = (0.1, 0.1, 0.1)
++    current_pose_visualizer_cfg.markers["frame"].scale = (0.1, 0.1, 0.1)
++
++
++@configclass
++class UniformPose2dCommandCfg(CommandTermCfg):
++    """Configuration for the uniform 2D-pose command generator."""
++
++    class_type: type = UniformPose2dCommand
++
++    asset_name: str = MISSING
++    """Name of the asset in the environment for which the commands are generated."""
++
++    simple_heading: bool = MISSING
++    """Whether to use simple heading or not.
++
++    If True, the heading is in the direction of the target position.
++    """
++
++    @configclass
++    class Ranges:
++        """Uniform distribution ranges for the position commands."""
++
++        pos_x: tuple[float, float] = MISSING
++        """Range for the x position (in m)."""
++
++        pos_y: tuple[float, float] = MISSING
++        """Range for the y position (in m)."""
++
++        heading: tuple[float, float] = MISSING
++        """Heading range for the position commands (in rad).
++
++        Used only if :attr:`simple_heading` is False.
++        """
++
++    ranges: Ranges = MISSING
++    """Distribution ranges for the position commands."""
++
++    goal_pose_visualizer_cfg: VisualizationMarkersCfg = GREEN_ARROW_X_MARKER_CFG.replace(
++        prim_path="/Visuals/Command/pose_goal"
++    )
++    """The configuration for the goal pose visualization marker. Defaults to GREEN_ARROW_X_MARKER_CFG."""
++
++    # Set the scale of the visualization markers to (0.2, 0.2, 0.8)
++    goal_pose_visualizer_cfg.markers["arrow"].scale = (0.2, 0.2, 0.8)
++
++
++@configclass
++class TerrainBasedPose2dCommandCfg(UniformPose2dCommandCfg):
++    """Configuration for the terrain-based position command generator."""
++
++    class_type = TerrainBasedPose2dCommand
++
++    @configclass
++    class Ranges:
++        """Uniform distribution ranges for the position commands."""
++
++        heading: tuple[float, float] = MISSING
++        """Heading range for the position commands (in rad).
++
++        Used only if :attr:`simple_heading` is False.
++        """
++
++    ranges: Ranges = MISSING
++    """Distribution ranges for the sampled commands."""
+diff --git a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/velocity_command.py b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/velocity_command.py
+index 45382e5..e20477d 100644
+--- a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/velocity_command.py
++++ b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/commands/velocity_command.py
+@@ -1,287 +1,491 @@
+-# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+-# All rights reserved.
+-#
+-# SPDX-License-Identifier: BSD-3-Clause
+-
+-"""Sub-module containing command generators for the velocity-based locomotion task."""
+-
+-from __future__ import annotations
+-
+-import torch
+-from collections.abc import Sequence
+-from typing import TYPE_CHECKING
+-
+-import omni.log
+-
+-import isaaclab.utils.math as math_utils
+-from isaaclab.assets import Articulation
+-from isaaclab.managers import CommandTerm
+-from isaaclab.markers import VisualizationMarkers
+-
+-if TYPE_CHECKING:
+-    from isaaclab.envs import ManagerBasedEnv
+-
+-    from .commands_cfg import NormalVelocityCommandCfg, UniformVelocityCommandCfg
+-
+-
+-class UniformVelocityCommand(CommandTerm):
+-    r"""Command generator that generates a velocity command in SE(2) from uniform distribution.
+-
+-    The command comprises of a linear velocity in x and y direction and an angular velocity around
+-    the z-axis. It is given in the robot's base frame.
+-
+-    If the :attr:`cfg.heading_command` flag is set to True, the angular velocity is computed from the heading
+-    error similar to doing a proportional control on the heading error. The target heading is sampled uniformly
+-    from the provided range. Otherwise, the angular velocity is sampled uniformly from the provided range.
+-
+-    Mathematically, the angular velocity is computed as follows from the heading command:
+-
+-    .. math::
+-
+-        \omega_z = \frac{1}{2} \text{wrap_to_pi}(\theta_{\text{target}} - \theta_{\text{current}})
+-
+-    """
+-
+-    cfg: UniformVelocityCommandCfg
+-    """The configuration of the command generator."""
+-
+-    def __init__(self, cfg: UniformVelocityCommandCfg, env: ManagerBasedEnv):
+-        """Initialize the command generator.
+-
+-        Args:
+-            cfg: The configuration of the command generator.
+-            env: The environment.
+-
+-        Raises:
+-            ValueError: If the heading command is active but the heading range is not provided.
+-        """
+-        # initialize the base class
+-        super().__init__(cfg, env)
+-
+-        # check configuration
+-        if self.cfg.heading_command and self.cfg.ranges.heading is None:
+-            raise ValueError(
+-                "The velocity command has heading commands active (heading_command=True) but the `ranges.heading`"
+-                " parameter is set to None."
+-            )
+-        if self.cfg.ranges.heading and not self.cfg.heading_command:
+-            omni.log.warn(
+-                f"The velocity command has the 'ranges.heading' attribute set to '{self.cfg.ranges.heading}'"
+-                " but the heading command is not active. Consider setting the flag for the heading command to True."
+-            )
+-
+-        # obtain the robot asset
+-        # -- robot
+-        self.robot: Articulation = env.scene[cfg.asset_name]
+-
+-        # crete buffers to store the command
+-        # -- command: x vel, y vel, yaw vel, heading
+-        self.vel_command_b = torch.zeros(self.num_envs, 3, device=self.device)
+-        self.heading_target = torch.zeros(self.num_envs, device=self.device)
+-        self.is_heading_env = torch.zeros(self.num_envs, dtype=torch.bool, device=self.device)
+-        self.is_standing_env = torch.zeros_like(self.is_heading_env)
+-        # -- metrics
+-        self.metrics["error_vel_xy"] = torch.zeros(self.num_envs, device=self.device)
+-        self.metrics["error_vel_yaw"] = torch.zeros(self.num_envs, device=self.device)
+-
+-    def __str__(self) -> str:
+-        """Return a string representation of the command generator."""
+-        msg = "UniformVelocityCommand:\n"
+-        msg += f"\tCommand dimension: {tuple(self.command.shape[1:])}\n"
+-        msg += f"\tResampling time range: {self.cfg.resampling_time_range}\n"
+-        msg += f"\tHeading command: {self.cfg.heading_command}\n"
+-        if self.cfg.heading_command:
+-            msg += f"\tHeading probability: {self.cfg.rel_heading_envs}\n"
+-        msg += f"\tStanding probability: {self.cfg.rel_standing_envs}"
+-        return msg
+-
+-    """
+-    Properties
+-    """
+-
+-    @property
+-    def command(self) -> torch.Tensor:
+-        """The desired base velocity command in the base frame. Shape is (num_envs, 3)."""
+-        return self.vel_command_b
+-
+-    """
+-    Implementation specific functions.
+-    """
+-
+-    def _update_metrics(self):
+-        # time for which the command was executed
+-        max_command_time = self.cfg.resampling_time_range[1]
+-        max_command_step = max_command_time / self._env.step_dt
+-        # logs data
+-        self.metrics["error_vel_xy"] += (
+-            torch.norm(self.vel_command_b[:, :2] - self.robot.data.root_lin_vel_b[:, :2], dim=-1) / max_command_step
+-        )
+-        self.metrics["error_vel_yaw"] += (
+-            torch.abs(self.vel_command_b[:, 2] - self.robot.data.root_ang_vel_b[:, 2]) / max_command_step
+-        )
+-
+-    def _resample_command(self, env_ids: Sequence[int]):
+-        # sample velocity commands
+-        r = torch.empty(len(env_ids), device=self.device)
+-        # -- linear velocity - x direction
+-        self.vel_command_b[env_ids, 0] = r.uniform_(*self.cfg.ranges.lin_vel_x)
+-        # -- linear velocity - y direction
+-        self.vel_command_b[env_ids, 1] = r.uniform_(*self.cfg.ranges.lin_vel_y)
+-        # -- ang vel yaw - rotation around z
+-        self.vel_command_b[env_ids, 2] = r.uniform_(*self.cfg.ranges.ang_vel_z)
+-        # heading target
+-        if self.cfg.heading_command:
+-            self.heading_target[env_ids] = r.uniform_(*self.cfg.ranges.heading)
+-            # update heading envs
+-            self.is_heading_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.rel_heading_envs
+-        # update standing envs
+-        self.is_standing_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.rel_standing_envs
+-
+-    def _update_command(self):
+-        """Post-processes the velocity command.
+-
+-        This function sets velocity command to zero for standing environments and computes angular
+-        velocity from heading direction if the heading_command flag is set.
+-        """
+-        # Compute angular velocity from heading direction
+-        if self.cfg.heading_command:
+-            # resolve indices of heading envs
+-            env_ids = self.is_heading_env.nonzero(as_tuple=False).flatten()
+-            # compute angular velocity
+-            heading_error = math_utils.wrap_to_pi(self.heading_target[env_ids] - self.robot.data.heading_w[env_ids])
+-            self.vel_command_b[env_ids, 2] = torch.clip(
+-                self.cfg.heading_control_stiffness * heading_error,
+-                min=self.cfg.ranges.ang_vel_z[0],
+-                max=self.cfg.ranges.ang_vel_z[1],
+-            )
+-        # Enforce standing (i.e., zero velocity command) for standing envs
+-        # TODO: check if conversion is needed
+-        standing_env_ids = self.is_standing_env.nonzero(as_tuple=False).flatten()
+-        self.vel_command_b[standing_env_ids, :] = 0.0
+-
+-    def _set_debug_vis_impl(self, debug_vis: bool):
+-        # set visibility of markers
+-        # note: parent only deals with callbacks. not their visibility
+-        if debug_vis:
+-            # create markers if necessary for the first time
+-            if not hasattr(self, "goal_vel_visualizer"):
+-                # -- goal
+-                self.goal_vel_visualizer = VisualizationMarkers(self.cfg.goal_vel_visualizer_cfg)
+-                # -- current
+-                self.current_vel_visualizer = VisualizationMarkers(self.cfg.current_vel_visualizer_cfg)
+-            # set their visibility to true
+-            self.goal_vel_visualizer.set_visibility(True)
+-            self.current_vel_visualizer.set_visibility(True)
+-        else:
+-            if hasattr(self, "goal_vel_visualizer"):
+-                self.goal_vel_visualizer.set_visibility(False)
+-                self.current_vel_visualizer.set_visibility(False)
+-
+-    def _debug_vis_callback(self, event):
+-        # check if robot is initialized
+-        # note: this is needed in-case the robot is de-initialized. we can't access the data
+-        if not self.robot.is_initialized:
+-            return
+-        # get marker location
+-        # -- base state
+-        base_pos_w = self.robot.data.root_pos_w.clone()
+-        base_pos_w[:, 2] += 0.5
+-        # -- resolve the scales and quaternions
+-        vel_des_arrow_scale, vel_des_arrow_quat = self._resolve_xy_velocity_to_arrow(self.command[:, :2])
+-        vel_arrow_scale, vel_arrow_quat = self._resolve_xy_velocity_to_arrow(self.robot.data.root_lin_vel_b[:, :2])
+-        # display markers
+-        self.goal_vel_visualizer.visualize(base_pos_w, vel_des_arrow_quat, vel_des_arrow_scale)
+-        self.current_vel_visualizer.visualize(base_pos_w, vel_arrow_quat, vel_arrow_scale)
+-
+-    """
+-    Internal helpers.
+-    """
+-
+-    def _resolve_xy_velocity_to_arrow(self, xy_velocity: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+-        """Converts the XY base velocity command to arrow direction rotation."""
+-        # obtain default scale of the marker
+-        default_scale = self.goal_vel_visualizer.cfg.markers["arrow"].scale
+-        # arrow-scale
+-        arrow_scale = torch.tensor(default_scale, device=self.device).repeat(xy_velocity.shape[0], 1)
+-        arrow_scale[:, 0] *= torch.linalg.norm(xy_velocity, dim=1) * 3.0
+-        # arrow-direction
+-        heading_angle = torch.atan2(xy_velocity[:, 1], xy_velocity[:, 0])
+-        zeros = torch.zeros_like(heading_angle)
+-        arrow_quat = math_utils.quat_from_euler_xyz(zeros, zeros, heading_angle)
+-        # convert everything back from base to world frame
+-        base_quat_w = self.robot.data.root_quat_w
+-        arrow_quat = math_utils.quat_mul(base_quat_w, arrow_quat)
+-
+-        return arrow_scale, arrow_quat
+-
+-
+-class NormalVelocityCommand(UniformVelocityCommand):
+-    """Command generator that generates a velocity command in SE(2) from a normal distribution.
+-
+-    The command comprises of a linear velocity in x and y direction and an angular velocity around
+-    the z-axis. It is given in the robot's base frame.
+-
+-    The command is sampled from a normal distribution with mean and standard deviation specified in
+-    the configuration. With equal probability, the sign of the individual components is flipped.
+-    """
+-
+-    cfg: NormalVelocityCommandCfg
+-    """The command generator configuration."""
+-
+-    def __init__(self, cfg: NormalVelocityCommandCfg, env: ManagerBasedEnv):
+-        """Initializes the command generator.
+-
+-        Args:
+-            cfg: The command generator configuration.
+-            env: The environment.
+-        """
+-        super().__init__(cfg, env)
+-        # create buffers for zero commands envs
+-        self.is_zero_vel_x_env = torch.zeros(self.num_envs, dtype=torch.bool, device=self.device)
+-        self.is_zero_vel_y_env = torch.zeros_like(self.is_zero_vel_x_env)
+-        self.is_zero_vel_yaw_env = torch.zeros_like(self.is_zero_vel_x_env)
+-
+-    def __str__(self) -> str:
+-        """Return a string representation of the command generator."""
+-        msg = "NormalVelocityCommand:\n"
+-        msg += f"\tCommand dimension: {tuple(self.command.shape[1:])}\n"
+-        msg += f"\tResampling time range: {self.cfg.resampling_time_range}\n"
+-        msg += f"\tStanding probability: {self.cfg.rel_standing_envs}"
+-        return msg
+-
+-    def _resample_command(self, env_ids):
+-        # sample velocity commands
+-        r = torch.empty(len(env_ids), device=self.device)
+-        # -- linear velocity - x direction
+-        self.vel_command_b[env_ids, 0] = r.normal_(mean=self.cfg.ranges.mean_vel[0], std=self.cfg.ranges.std_vel[0])
+-        self.vel_command_b[env_ids, 0] *= torch.where(r.uniform_(0.0, 1.0) <= 0.5, 1.0, -1.0)
+-        # -- linear velocity - y direction
+-        self.vel_command_b[env_ids, 1] = r.normal_(mean=self.cfg.ranges.mean_vel[1], std=self.cfg.ranges.std_vel[1])
+-        self.vel_command_b[env_ids, 1] *= torch.where(r.uniform_(0.0, 1.0) <= 0.5, 1.0, -1.0)
+-        # -- angular velocity - yaw direction
+-        self.vel_command_b[env_ids, 2] = r.normal_(mean=self.cfg.ranges.mean_vel[2], std=self.cfg.ranges.std_vel[2])
+-        self.vel_command_b[env_ids, 2] *= torch.where(r.uniform_(0.0, 1.0) <= 0.5, 1.0, -1.0)
+-
+-        # update element wise zero velocity command
+-        # TODO what is zero prob ?
+-        self.is_zero_vel_x_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.ranges.zero_prob[0]
+-        self.is_zero_vel_y_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.ranges.zero_prob[1]
+-        self.is_zero_vel_yaw_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.ranges.zero_prob[2]
+-
+-        # update standing envs
+-        self.is_standing_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.rel_standing_envs
+-
+-    def _update_command(self):
+-        """Sets velocity command to zero for standing envs."""
+-        # Enforce standing (i.e., zero velocity command) for standing envs
+-        standing_env_ids = self.is_standing_env.nonzero(as_tuple=False).flatten()  # TODO check if conversion is needed
+-        self.vel_command_b[standing_env_ids, :] = 0.0
+-
+-        # Enforce zero velocity for individual elements
+-        # TODO: check if conversion is needed
+-        zero_vel_x_env_ids = self.is_zero_vel_x_env.nonzero(as_tuple=False).flatten()
+-        zero_vel_y_env_ids = self.is_zero_vel_y_env.nonzero(as_tuple=False).flatten()
+-        zero_vel_yaw_env_ids = self.is_zero_vel_yaw_env.nonzero(as_tuple=False).flatten()
+-        self.vel_command_b[zero_vel_x_env_ids, 0] = 0.0
+-        self.vel_command_b[zero_vel_y_env_ids, 1] = 0.0
+-        self.vel_command_b[zero_vel_yaw_env_ids, 2] = 0.0
++# Copyright (c) 2022-2025, The Isaac Lab Project Developers.
++# All rights reserved.
++#
++# SPDX-License-Identifier: BSD-3-Clause
++
++"""Sub-module containing command generators for the velocity-based locomotion task."""
++
++from __future__ import annotations
++
++import torch
++from collections.abc import Sequence
++from typing import TYPE_CHECKING
++
++import omni.log
++
++import isaaclab.utils.math as math_utils
++from isaaclab.assets import Articulation
++from isaaclab.managers import CommandTerm
++from isaaclab.markers import VisualizationMarkers
++
++if TYPE_CHECKING:
++    from isaaclab.envs import ManagerBasedEnv
++
++    from .commands_cfg import NormalVelocityCommandCfg, UniformVelocityCommandCfg, ForwardVelocityCommandCfg
++
++
++class UniformVelocityCommand(CommandTerm):
++    r"""Command generator that generates a velocity command in SE(2) from uniform distribution.
++
++    The command comprises of a linear velocity in x and y direction and an angular velocity around
++    the z-axis. It is given in the robot's base frame.
++
++    If the :attr:`cfg.heading_command` flag is set to True, the angular velocity is computed from the heading
++    error similar to doing a proportional control on the heading error. The target heading is sampled uniformly
++    from the provided range. Otherwise, the angular velocity is sampled uniformly from the provided range.
++
++    Mathematically, the angular velocity is computed as follows from the heading command:
++
++    .. math::
++
++        \omega_z = \frac{1}{2} \text{wrap_to_pi}(\theta_{\text{target}} - \theta_{\text{current}})
++
++    """
++
++    cfg: UniformVelocityCommandCfg
++    """The configuration of the command generator."""
++
++    def __init__(self, cfg: UniformVelocityCommandCfg, env: ManagerBasedEnv):
++        """Initialize the command generator.
++
++        Args:
++            cfg: The configuration of the command generator.
++            env: The environment.
++
++        Raises:
++            ValueError: If the heading command is active but the heading range is not provided.
++        """
++        # initialize the base class
++        super().__init__(cfg, env)
++
++        # check configuration
++        if self.cfg.heading_command and self.cfg.ranges.heading is None:
++            raise ValueError(
++                "The velocity command has heading commands active (heading_command=True) but the `ranges.heading`"
++                " parameter is set to None."
++            )
++        if self.cfg.ranges.heading and not self.cfg.heading_command:
++            omni.log.warn(
++                f"The velocity command has the 'ranges.heading' attribute set to '{self.cfg.ranges.heading}'"
++                " but the heading command is not active. Consider setting the flag for the heading command to True."
++            )
++
++        # obtain the robot asset
++        # -- robot
++        self.robot: Articulation = env.scene[cfg.asset_name]
++
++        # crete buffers to store the command
++        # -- command: x vel, y vel, yaw vel, heading
++        self.vel_command_b = torch.zeros(self.num_envs, 3, device=self.device)
++        self.heading_target = torch.zeros(self.num_envs, device=self.device)
++        self.is_heading_env = torch.zeros(self.num_envs, dtype=torch.bool, device=self.device)
++        self.is_standing_env = torch.zeros_like(self.is_heading_env)
++        # -- metrics
++        self.metrics["error_vel_xy"] = torch.zeros(self.num_envs, device=self.device)
++        self.metrics["error_vel_yaw"] = torch.zeros(self.num_envs, device=self.device)
++
++    def __str__(self) -> str:
++        """Return a string representation of the command generator."""
++        msg = "UniformVelocityCommand:\n"
++        msg += f"\tCommand dimension: {tuple(self.command.shape[1:])}\n"
++        msg += f"\tResampling time range: {self.cfg.resampling_time_range}\n"
++        msg += f"\tHeading command: {self.cfg.heading_command}\n"
++        if self.cfg.heading_command:
++            msg += f"\tHeading probability: {self.cfg.rel_heading_envs}\n"
++        msg += f"\tStanding probability: {self.cfg.rel_standing_envs}"
++        return msg
++
++    """
++    Properties
++    """
++
++    @property
++    def command(self) -> torch.Tensor:
++        """The desired base velocity command in the base frame. Shape is (num_envs, 3)."""
++        return self.vel_command_b
++
++    """
++    Implementation specific functions.
++    """
++
++    def _update_metrics(self):
++        # time for which the command was executed
++        max_command_time = self.cfg.resampling_time_range[1]
++        max_command_step = max_command_time / self._env.step_dt
++        # logs data
++        self.metrics["error_vel_xy"] += (
++            torch.norm(self.vel_command_b[:, :2] - self.robot.data.root_lin_vel_b[:, :2], dim=-1) / max_command_step
++        )
++        self.metrics["error_vel_yaw"] += (
++            torch.abs(self.vel_command_b[:, 2] - self.robot.data.root_ang_vel_b[:, 2]) / max_command_step
++        )
++
++    def _resample_command(self, env_ids: Sequence[int]):
++        # sample velocity commands
++        r = torch.empty(len(env_ids), device=self.device)
++        # -- linear velocity - x direction
++        self.vel_command_b[env_ids, 0] = r.uniform_(*self.cfg.ranges.lin_vel_x)
++        # -- linear velocity - y direction
++        # self.vel_command_b[env_ids, 1] = r.uniform_(*self.cfg.ranges.lin_vel_y)
++        # -- ang vel yaw - rotation around z
++        self.vel_command_b[env_ids, 1] = r.uniform_(*self.cfg.ranges.ang_vel_z)
++        # heading target
++        if self.cfg.heading_command:
++            self.heading_target[env_ids] = r.uniform_(*self.cfg.ranges.heading)
++            # update heading envs
++            self.is_heading_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.rel_heading_envs
++        # update standing envs
++        self.is_standing_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.rel_standing_envs
++
++    def _update_command(self):
++        """Post-processes the velocity command.
++
++        This function sets velocity command to zero for standing environments and computes angular
++        velocity from heading direction if the heading_command flag is set.
++        """
++        # Compute angular velocity from heading direction
++        if self.cfg.heading_command:
++            # resolve indices of heading envs
++            env_ids = self.is_heading_env.nonzero(as_tuple=False).flatten()
++            # compute angular velocity
++            heading_error = math_utils.wrap_to_pi(self.heading_target[env_ids] - self.robot.data.heading_w[env_ids])
++            self.vel_command_b[env_ids, 2] = torch.clip(
++                self.cfg.heading_control_stiffness * heading_error,
++                min=self.cfg.ranges.ang_vel_z[0],
++                max=self.cfg.ranges.ang_vel_z[1],
++            )
++        # Enforce standing (i.e., zero velocity command) for standing envs
++        # TODO: check if conversion is needed
++        standing_env_ids = self.is_standing_env.nonzero(as_tuple=False).flatten()
++        self.vel_command_b[standing_env_ids, :] = 0.0
++
++    def _set_debug_vis_impl(self, debug_vis: bool):
++        # set visibility of markers
++        # note: parent only deals with callbacks. not their visibility
++        if debug_vis:
++            # create markers if necessary for the first tome
++            if not hasattr(self, "goal_vel_visualizer"):
++                # -- goal
++                self.goal_vel_visualizer = VisualizationMarkers(self.cfg.goal_vel_visualizer_cfg)
++                # -- current
++                self.current_vel_visualizer = VisualizationMarkers(self.cfg.current_vel_visualizer_cfg)
++            # set their visibility to true
++            self.goal_vel_visualizer.set_visibility(True)
++            self.current_vel_visualizer.set_visibility(True)
++        else:
++            if hasattr(self, "goal_vel_visualizer"):
++                self.goal_vel_visualizer.set_visibility(False)
++                self.current_vel_visualizer.set_visibility(False)
++
++    def _debug_vis_callback(self, event):
++        # check if robot is initialized
++        # note: this is needed in-case the robot is de-initialized. we can't access the data
++        if not self.robot.is_initialized:
++            return
++        # get marker location
++        # -- base state
++        base_pos_w = self.robot.data.root_pos_w.clone()
++        base_pos_w[:, 2] += 0.5
++        # -- resolve the scales and quaternions
++        vel_des_arrow_scale, vel_des_arrow_quat = self._resolve_xy_velocity_to_arrow(self.command[:, :2])
++        vel_arrow_scale, vel_arrow_quat = self._resolve_xy_velocity_to_arrow(self.robot.data.root_lin_vel_b[:, :2])
++        # display markers
++        self.goal_vel_visualizer.visualize(base_pos_w, vel_des_arrow_quat, vel_des_arrow_scale)
++        self.current_vel_visualizer.visualize(base_pos_w, vel_arrow_quat, vel_arrow_scale)
++
++    """
++    Internal helpers.
++    """
++
++    def _resolve_xy_velocity_to_arrow(self, xy_velocity: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
++        """Converts the XY base velocity command to arrow direction rotation."""
++        # obtain default scale of the marker
++        default_scale = self.goal_vel_visualizer.cfg.markers["arrow"].scale
++        # arrow-scale
++        arrow_scale = torch.tensor(default_scale, device=self.device).repeat(xy_velocity.shape[0], 1)
++        arrow_scale[:, 0] *= torch.linalg.norm(xy_velocity, dim=1) * 3.0
++        # arrow-direction
++        heading_angle = torch.atan2(xy_velocity[:, 1], xy_velocity[:, 0])
++        zeros = torch.zeros_like(heading_angle)
++        arrow_quat = math_utils.quat_from_euler_xyz(zeros, zeros, heading_angle)
++        # convert everything back from base to world frame
++        base_quat_w = self.robot.data.root_quat_w
++        arrow_quat = math_utils.quat_mul(base_quat_w, arrow_quat)
++
++        return arrow_scale, arrow_quat
++
++
++class ForwardVelocityCommand(CommandTerm):
++    r"""Command generator for non-holonomic robots that can only move forward/backward and rotate.
++
++    The command comprises of a linear velocity in the x direction (forward/backward) and an angular 
++    velocity around the z-axis. The y velocity (lateral movement) is always set to zero.
++    This is suitable for differential drive robots, car-like robots, or legged robots
++    that cannot move sideways.
++
++    If the :attr:`cfg.heading_command` flag is set to True, the angular velocity is computed from the heading
++    error similar to doing a proportional control on the heading error.
++    """
++
++    cfg: ForwardVelocityCommandCfg
++    """The configuration of the command generator."""
++
++    def __init__(self, cfg: ForwardVelocityCommandCfg, env: ManagerBasedEnv):
++        """Initialize the command generator.
++
++        Args:
++            cfg: The configuration of the command generator.
++            env: The environment.
++
++        Raises:
++            ValueError: If the heading command is active but the heading range is not provided.
++        """
++        # initialize the base class
++        super().__init__(cfg, env)
++
++        # check configuration
++        if self.cfg.heading_command and self.cfg.ranges.heading is None:
++            raise ValueError(
++                "The velocity command has heading commands active (heading_command=True) but the `ranges.heading`"
++                " parameter is set to None."
++            )
++        if self.cfg.ranges.heading and not self.cfg.heading_command:
++            omni.log.warn(
++                f"The velocity command has the 'ranges.heading' attribute set to '{self.cfg.ranges.heading}'"
++                " but the heading command is not active. Consider setting the flag for the heading command to True."
++            )
++
++        # obtain the robot asset
++        # -- robot
++        self.robot: Articulation = env.scene[cfg.asset_name]
++
++        # create buffers to store the command
++        # -- command: x vel, y vel (always 0), yaw vel, heading
++        self.vel_command_b = torch.zeros(self.num_envs, 2, device=self.device)
++        self.heading_target = torch.zeros(self.num_envs, device=self.device)
++        self.is_heading_env = torch.zeros(self.num_envs, dtype=torch.bool, device=self.device)
++        self.is_standing_env = torch.zeros_like(self.is_heading_env)
++        # -- metrics
++        self.metrics["error_vel_x"] = torch.zeros(self.num_envs, device=self.device)
++        self.metrics["error_vel_yaw"] = torch.zeros(self.num_envs, device=self.device)
++
++    def __str__(self) -> str:
++        """Return a string representation of the command generator."""
++        msg = "ForwardVelocityCommand:\n"
++        msg += f"\tCommand dimension: {tuple(self.command.shape[1:])}\n"
++        msg += f"\tResampling time range: {self.cfg.resampling_time_range}\n"
++        msg += f"\tHeading command: {self.cfg.heading_command}\n"
++        if self.cfg.heading_command:
++            msg += f"\tHeading probability: {self.cfg.rel_heading_envs}\n"
++        msg += f"\tStanding probability: {self.cfg.rel_standing_envs}"
++        return msg
++
++    """
++    Properties
++    """
++
++    @property
++    def command(self) -> torch.Tensor:
++        """The desired base velocity command in the base frame. Shape is (num_envs, 3)."""
++        return self.vel_command_b
++
++    """
++    Implementation specific functions.
++    """
++
++    def _update_metrics(self):
++        # time for which the command was executed
++        max_command_time = self.cfg.resampling_time_range[1]
++        max_command_step = max_command_time / self._env.step_dt
++        # logs data - specifically for forward velocity (x) and yaw
++        self.metrics["error_vel_x"] += (
++            torch.abs(self.vel_command_b[:, 0] - self.robot.data.root_lin_vel_b[:, 0]) / max_command_step
++        )
++        self.metrics["error_vel_yaw"] += (
++            torch.abs(self.vel_command_b[:, 1] - self.robot.data.root_ang_vel_b[:, 1]) / max_command_step
++        )
++
++    def _resample_command(self, env_ids: Sequence[int]):
++        # sample velocity commands
++        r = torch.empty(len(env_ids), device=self.device)
++        
++        # -- linear velocity - x direction (forward/backward)
++        self.vel_command_b[env_ids, 0] = r.uniform_(*self.cfg.ranges.lin_vel_x)
++
++        # -- angular velocity - rotation around z axis
++        self.vel_command_b[env_ids, 1] = r.uniform_(*self.cfg.ranges.ang_vel_z)
++        
++        # heading target
++        if self.cfg.heading_command:
++            self.heading_target[env_ids] = r.uniform_(*self.cfg.ranges.heading)
++            # update heading envs
++            self.is_heading_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.rel_heading_envs
++            
++        # update standing envs
++        self.is_standing_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.rel_standing_envs
++
++    def _update_command(self):
++        """Post-processes the velocity command.
++
++        This function sets velocity command to zero for standing environments and computes angular
++        velocity from heading direction if the heading_command flag is set.
++        """        
++        # Compute angular velocity from heading direction
++        if self.cfg.heading_command:
++            # resolve indices of heading envs
++            env_ids = self.is_heading_env.nonzero(as_tuple=False).flatten()
++            # compute angular velocity
++            heading_error = math_utils.wrap_to_pi(self.heading_target[env_ids] - self.robot.data.heading_w[env_ids])
++            self.vel_command_b[env_ids, 1] = torch.clip(
++                self.cfg.heading_control_stiffness * heading_error,
++                min=self.cfg.ranges.ang_vel_z[0],
++                max=self.cfg.ranges.ang_vel_z[1],
++            )
++            
++        # Enforce standing (i.e., zero velocity command) for standing envs
++        standing_env_ids = self.is_standing_env.nonzero(as_tuple=False).flatten()
++        self.vel_command_b[standing_env_ids, :] = 0.0
++
++    def _set_debug_vis_impl(self, debug_vis: bool):
++        # set visibility of markers
++        # note: parent only deals with callbacks. not their visibility
++        if debug_vis:
++            # create markers if necessary for the first time
++            if not hasattr(self, "goal_vel_visualizer"):
++                # -- goal
++                self.goal_vel_visualizer = VisualizationMarkers(self.cfg.goal_vel_visualizer_cfg)
++                # -- current
++                self.current_vel_visualizer = VisualizationMarkers(self.cfg.current_vel_visualizer_cfg)
++            # set their visibility to true
++            self.goal_vel_visualizer.set_visibility(True)
++            self.current_vel_visualizer.set_visibility(True)
++        else:
++            if hasattr(self, "goal_vel_visualizer"):
++                self.goal_vel_visualizer.set_visibility(False)
++                self.current_vel_visualizer.set_visibility(False)
++
++    def _debug_vis_callback(self, event):
++        # check if robot is initialized
++        # note: this is needed in-case the robot is de-initialized. we can't access the data
++        if not self.robot.is_initialized:
++            return
++            
++        # get marker location
++        # -- base state
++        base_pos_w = self.robot.data.root_pos_w.clone()
++        base_pos_w[:, 2] += 0.5
++        
++        # -- Create visualization vectors (with y=0 for forward-only motion)
++        cmd_viz = self.command.clone()
++        vel_viz = self.robot.data.root_lin_vel_b.clone()
++        
++        # -- resolve the scales and quaternions
++        vel_des_arrow_scale, vel_des_arrow_quat = self._resolve_forward_velocity_to_arrow(cmd_viz[:, :2])
++        vel_arrow_scale, vel_arrow_quat = self._resolve_forward_velocity_to_arrow(vel_viz[:, :2])
++        
++        # display markers
++        self.goal_vel_visualizer.visualize(base_pos_w, vel_des_arrow_quat, vel_des_arrow_scale)
++        self.current_vel_visualizer.visualize(base_pos_w, vel_arrow_quat, vel_arrow_scale)
++
++    """
++    Internal helpers.
++    """
++
++    def _resolve_forward_velocity_to_arrow(self, xy_velocity: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
++        """Converts forward velocity command to arrow direction and rotation.
++        
++        For non-holonomic robots, this ensures the arrow only points forward/backward.
++        """
++        # obtain default scale of the marker
++        default_scale = self.goal_vel_visualizer.cfg.markers["arrow"].scale
++        
++        # Get x-component only for scale (ignoring y)
++        x_vel = xy_velocity[:, 0]
++        vel_magnitude = torch.abs(x_vel)
++        
++        # arrow-scale
++        arrow_scale = torch.tensor(default_scale, device=self.device).repeat(xy_velocity.shape[0], 1)
++        arrow_scale[:, 0] *= vel_magnitude * 3.0
++        
++        # arrow-direction (0 or 180 degrees based on sign of x_vel)
++        # For forward velocity, angle is 0; for backward, angle is pi
++        heading_angle = torch.where(x_vel >= 0, torch.zeros_like(x_vel), torch.ones_like(x_vel) * math.pi)
++        zeros = torch.zeros_like(heading_angle)
++        arrow_quat = math_utils.quat_from_euler_xyz(zeros, zeros, heading_angle)
++        
++        # convert everything back from base to world frame
++        base_quat_w = self.robot.data.root_quat_w
++        arrow_quat = math_utils.quat_mul(base_quat_w, arrow_quat)
++
++        return arrow_scale, arrow_quat
++
++class NormalVelocityCommand(UniformVelocityCommand):
++    """Command generator that generates a velocity command in SE(2) from a normal distribution.
++
++    The command comprises of a linear velocity in x and y direction and an angular velocity around
++    the z-axis. It is given in the robot's base frame.
++
++    The command is sampled from a normal distribution with mean and standard deviation specified in
++    the configuration. With equal probability, the sign of the individual components is flipped.
++    """
++
++    cfg: NormalVelocityCommandCfg
++    """The command generator configuration."""
++
++    def __init__(self, cfg: NormalVelocityCommandCfg, env: ManagerBasedEnv):
++        """Initializes the command generator.
++
++        Args:
++            cfg: The command generator configuration.
++            env: The environment.
++        """
++        super().__init__(cfg, env)
++        # create buffers for zero commands envs
++        self.is_zero_vel_x_env = torch.zeros(self.num_envs, dtype=torch.bool, device=self.device)
++        self.is_zero_vel_y_env = torch.zeros_like(self.is_zero_vel_x_env)
++        self.is_zero_vel_yaw_env = torch.zeros_like(self.is_zero_vel_x_env)
++
++    def __str__(self) -> str:
++        """Return a string representation of the command generator."""
++        msg = "NormalVelocityCommand:\n"
++        msg += f"\tCommand dimension: {tuple(self.command.shape[1:])}\n"
++        msg += f"\tResampling time range: {self.cfg.resampling_time_range}\n"
++        msg += f"\tStanding probability: {self.cfg.rel_standing_envs}"
++        return msg
++
++    def _resample_command(self, env_ids):
++        # sample velocity commands
++        r = torch.empty(len(env_ids), device=self.device)
++        # -- linear velocity - x direction
++        self.vel_command_b[env_ids, 0] = r.normal_(mean=self.cfg.ranges.mean_vel[0], std=self.cfg.ranges.std_vel[0])
++        self.vel_command_b[env_ids, 0] *= torch.where(r.uniform_(0.0, 1.0) <= 0.5, 1.0, -1.0)
++        # -- linear velocity - y direction
++        self.vel_command_b[env_ids, 1] = r.normal_(mean=self.cfg.ranges.mean_vel[1], std=self.cfg.ranges.std_vel[1])
++        self.vel_command_b[env_ids, 1] *= torch.where(r.uniform_(0.0, 1.0) <= 0.5, 1.0, -1.0)
++        # -- angular velocity - yaw direction
++        self.vel_command_b[env_ids, 2] = r.normal_(mean=self.cfg.ranges.mean_vel[2], std=self.cfg.ranges.std_vel[2])
++        self.vel_command_b[env_ids, 2] *= torch.where(r.uniform_(0.0, 1.0) <= 0.5, 1.0, -1.0)
++
++        # update element wise zero velocity command
++        # TODO what is zero prob ?
++        self.is_zero_vel_x_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.ranges.zero_prob[0]
++        self.is_zero_vel_y_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.ranges.zero_prob[1]
++        self.is_zero_vel_yaw_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.ranges.zero_prob[2]
++
++        # update standing envs
++        self.is_standing_env[env_ids] = r.uniform_(0.0, 1.0) <= self.cfg.rel_standing_envs
++
++    def _update_command(self):
++        """Sets velocity command to zero for standing envs."""
++        # Enforce standing (i.e., zero velocity command) for standing envs
++        standing_env_ids = self.is_standing_env.nonzero(as_tuple=False).flatten()  # TODO check if conversion is needed
++        self.vel_command_b[standing_env_ids, :] = 0.0
++
++        # Enforce zero velocity for individual elements
++        # TODO: check if conversion is needed
++        zero_vel_x_env_ids = self.is_zero_vel_x_env.nonzero(as_tuple=False).flatten()
++        zero_vel_y_env_ids = self.is_zero_vel_y_env.nonzero(as_tuple=False).flatten()
++        zero_vel_yaw_env_ids = self.is_zero_vel_yaw_env.nonzero(as_tuple=False).flatten()
++        self.vel_command_b[zero_vel_x_env_ids, 0] = 0.0
++        self.vel_command_b[zero_vel_y_env_ids, 1] = 0.0
++        self.vel_command_b[zero_vel_yaw_env_ids, 2] = 0.0
+diff --git a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/rewards.py b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/rewards.py
+index d8a2797..149211b 100644
+--- a/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/rewards.py
++++ b/ISAAC_NOGIT/source/isaaclab/isaaclab/envs/mdp/rewards.py
+@@ -1,4 +1,4 @@
+-# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
++# Copyright (c) 2022-2025, The Isaac Lab Project Developers.
+ # All rights reserved.
+ #
+ # SPDX-License-Identifier: BSD-3-Clause
+@@ -22,6 +22,7 @@ from isaaclab.sensors import ContactSensor, RayCaster
+ 
+ if TYPE_CHECKING:
+     from isaaclab.envs import ManagerBasedRLEnv
++import csv
+ 
+ """
+ General.
+@@ -127,7 +128,33 @@ def body_lin_acc_l2(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEnt
+     asset: Articulation = env.scene[asset_cfg.name]
+     return torch.sum(torch.norm(asset.data.body_lin_acc_w[:, asset_cfg.body_ids, :], dim=-1), dim=1)
+ 
++def feet_clearance(
++    env: ManagerBasedRLEnv, command_name: str, sensor_cfg: SceneEntityCfg, target_height: float
++) -> torch.Tensor:
++    """Reward feet clearance.
++
++    This function rewards the agent for lifting its feet off the ground. The reward is computed as the
++    sum of the clearance of the feet from the ground. This ensures that the agent is not sliding its
++    feet on the ground.
+ 
++    If the commands are small (i.e. the agent is not supposed to take a step), then the reward is zero.
++    """
++    # extract the used quantities (to enable type-hinting)
++    asset: RigidObject = env.scene[sensor_cfg.name]
++    if sensor_cfg is not None:
++        sensor: RayCaster = env.scene[sensor_cfg.name]
++        # Adjust the target height using the sensor data
++        adjusted_target_height = target_height + torch.mean(sensor.data.ray_hits_w[..., 2], dim=1)
++    else:
++        # Use the provided target height directly for flat terrain
++        adjusted_target_height = target_height
++
++    # Compute the L2 squared penalty
++    clearance_penalty = torch.square(asset.data.root_pos_w[:, 2] - adjusted_target_height)
++
++    # no reward for zero command
++    clearance_penalty *= torch.norm(env.command_manager.get_command(command_name)[:, :2], dim=1) > 0.1
++    return clearance_penalty
+ """
+ Joint penalties.
+ """
+@@ -140,6 +167,7 @@ def joint_torques_l2(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEn
+     """
+     # extract the used quantities (to enable type-hinting)
+     asset: Articulation = env.scene[asset_cfg.name]
++    
+     return torch.sum(torch.square(asset.data.applied_torque[:, asset_cfg.joint_ids]), dim=1)
+ 
+ 
+@@ -167,6 +195,7 @@ def joint_acc_l2(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEntity
+     """
+     # extract the used quantities (to enable type-hinting)
+     asset: Articulation = env.scene[asset_cfg.name]
++    
+     return torch.sum(torch.square(asset.data.joint_acc[:, asset_cfg.joint_ids]), dim=1)
+ 
+ 
+@@ -174,6 +203,7 @@ def joint_deviation_l1(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = Scene
+     """Penalize joint positions that deviate from the default one."""
+     # extract the used quantities (to enable type-hinting)
+     asset: Articulation = env.scene[asset_cfg.name]
++   
+     # compute out of limits constraints
+     angle = asset.data.joint_pos[:, asset_cfg.joint_ids] - asset.data.default_joint_pos[:, asset_cfg.joint_ids]
+     return torch.sum(torch.abs(angle), dim=1)
+@@ -186,6 +216,7 @@ def joint_pos_limits(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEn
+     """
+     # extract the used quantities (to enable type-hinting)
+     asset: Articulation = env.scene[asset_cfg.name]
++    
+     # compute out of limits constraints
+     out_of_limits = -(
+         asset.data.joint_pos[:, asset_cfg.joint_ids] - asset.data.soft_joint_pos_limits[:, asset_cfg.joint_ids, 0]
+@@ -244,9 +275,19 @@ def applied_torque_limits(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = Sc
+ 
+ def action_rate_l2(env: ManagerBasedRLEnv) -> torch.Tensor:
+     """Penalize the rate of change of the actions using L2 squared kernel."""
++    # print("action_wheel", env.action_manager.action[:, 8:12])
++    # print("action_legs", env.action_manager.action[:, :8])
++    
+     return torch.sum(torch.square(env.action_manager.action - env.action_manager.prev_action), dim=1)
+ 
+ 
++# def action_rate_l2_wheels(env: ManagerBasedRLEnv) -> torch.Tensor:
++#     """Penalize the rate of change of the actions using L2 squared kernel."""
++#     # print("action_wheel", env.action_manager.action[:, 8:12])
++#     # print("action_legs", env.action_manager.action[:, :8])
++    
++#     return torch.sum(torch.square(env.action_manager.action[:, 8:12] - env.action_manager.prev_action[:, 8:12]), dim=1)
++
+ def action_l2(env: ManagerBasedRLEnv) -> torch.Tensor:
+     """Penalize the actions using L2 squared kernel."""
+     return torch.sum(torch.square(env.action_manager.action), dim=1)
+@@ -268,16 +309,6 @@ def undesired_contacts(env: ManagerBasedRLEnv, threshold: float, sensor_cfg: Sce
+     return torch.sum(is_contact, dim=1)
+ 
+ 
+-def desired_contacts(env, sensor_cfg: SceneEntityCfg, threshold: float = 1.0) -> torch.Tensor:
+-    """Penalize if none of the desired contacts are present."""
+-    contact_sensor: ContactSensor = env.scene.sensors[sensor_cfg.name]
+-    contacts = (
+-        contact_sensor.data.net_forces_w_history[:, :, sensor_cfg.body_ids, :].norm(dim=-1).max(dim=1)[0] > threshold
+-    )
+-    zero_contact = (~contacts).all(dim=1)
+-    return 1.0 * zero_contact
+-
+-
+ def contact_forces(env: ManagerBasedRLEnv, threshold: float, sensor_cfg: SceneEntityCfg) -> torch.Tensor:
+     """Penalize contact forces as the amount of violations of the net contact force."""
+     # extract the used quantities (to enable type-hinting)
+@@ -305,6 +336,7 @@ def track_lin_vel_xy_exp(
+         torch.square(env.command_manager.get_command(command_name)[:, :2] - asset.data.root_lin_vel_b[:, :2]),
+         dim=1,
+     )
++ 
+     return torch.exp(-lin_vel_error / std**2)
+ 
+ 
+@@ -317,3 +349,69 @@ def track_ang_vel_z_exp(
+     # compute the error
+     ang_vel_error = torch.square(env.command_manager.get_command(command_name)[:, 2] - asset.data.root_ang_vel_b[:, 2])
+     return torch.exp(-ang_vel_error / std**2)
++
++
++def track_lin_vel_x_exp(
++    env: ManagerBasedRLEnv, std: float, command_name: str, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")
++) -> torch.Tensor:
++    """Reward tracking of forward linear velocity commands (x-axis only) using exponential kernel.
++    
++    This function is designed for non-holonomic robots where the command vector 
++    contains only [vx, wz] without vy component.
++    
++    Args:
++        env: The environment instance
++        std: Standard deviation for the exponential kernel
++        command_name: Name of the command to track
++        asset_cfg: Configuration for the robot asset
++        
++    Returns:
++        torch.Tensor: Exponential reward based on how well the robot's x-velocity matches the command
++    """
++    # extract the used quantities (to enable type-hinting)
++    asset: RigidObject = env.scene[asset_cfg.name]
++    
++    # Get command - first element [0] is vx in the 2D command vector
++    command_vx = env.command_manager.get_command(command_name)[:, 0]
++    
++    # Get actual velocity - x component only
++    actual_vx = asset.data.root_lin_vel_b[:, 0]
++    
++    # Compute the squared error for x velocity only
++    lin_vel_x_error = torch.square(command_vx - actual_vx)
++    
++    # Return exponential reward
++    return torch.exp(-lin_vel_x_error / std**2)
++
++
++def track_ang_vel_z_from_2d_exp(
++    env: ManagerBasedRLEnv, std: float, command_name: str, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")
++) -> torch.Tensor:
++    """Reward tracking of angular velocity commands (yaw) using exponential kernel.
++    
++    This function is designed for non-holonomic robots where the command vector 
++    contains only [vx, wz] without vy component.
++    
++    Args:
++        env: The environment instance
++        std: Standard deviation for the exponential kernel
++        command_name: Name of the command to track
++        asset_cfg: Configuration for the robot asset
++        
++    Returns:
++        torch.Tensor: Exponential reward based on how well the robot's angular velocity matches the command
++    """
++    # extract the used quantities (to enable type-hinting)
++    asset: RigidObject = env.scene[asset_cfg.name]
++    
++    # Get command - second element [1] is wz in the 2D command vector
++    command_wz = env.command_manager.get_command(command_name)[:, 1]
++    
++    # Get actual angular velocity - z component
++    actual_wz = asset.data.root_ang_vel_b[:, 2]
++    
++    # Compute the squared error for angular velocity
++    ang_vel_error = torch.square(command_wz - actual_wz)
++    
++    # Return exponential reward
++    return torch.exp(-ang_vel_error / std**2)
+diff --git a/ISAAC_NOGIT/source/isaaclab_rl/isaaclab_rl.egg-info/PKG-INFO b/ISAAC_NOGIT/source/isaaclab_rl/isaaclab_rl.egg-info/PKG-INFO
+index 749f088..df0742f 100644
+--- a/ISAAC_NOGIT/source/isaaclab_rl/isaaclab_rl.egg-info/PKG-INFO
++++ b/ISAAC_NOGIT/source/isaaclab_rl/isaaclab_rl.egg-info/PKG-INFO
+@@ -39,12 +39,12 @@ Requires-Dist: gym; extra == "rl-games"
+ Provides-Extra: rsl-rl
+ Requires-Dist: rsl-rl-lib==3.0.1; extra == "rsl-rl"
+ Provides-Extra: all
+-Requires-Dist: gym; extra == "all"
+-Requires-Dist: rsl-rl-lib==3.0.1; extra == "all"
+-Requires-Dist: skrl>=1.4.3; extra == "all"
+-Requires-Dist: rl-games@ git+https://github.com/isaac-sim/rl_games.git@python3.11 ; extra == "all"
+ Requires-Dist: stable-baselines3>=2.6; extra == "all"
++Requires-Dist: rl-games@ git+https://github.com/isaac-sim/rl_games.git@python3.11 ; extra == "all"
+ Requires-Dist: rich; extra == "all"
++Requires-Dist: skrl>=1.4.3; extra == "all"
++Requires-Dist: rsl-rl-lib==3.0.1; extra == "all"
++Requires-Dist: gym; extra == "all"
+ Requires-Dist: tqdm; extra == "all"
+ Dynamic: author
+ Dynamic: classifier
+diff --git a/ISAAC_NOGIT/source/isaaclab_rl/isaaclab_rl.egg-info/requires.txt b/ISAAC_NOGIT/source/isaaclab_rl/isaaclab_rl.egg-info/requires.txt
+index 793749b..c408734 100644
+--- a/ISAAC_NOGIT/source/isaaclab_rl/isaaclab_rl.egg-info/requires.txt
++++ b/ISAAC_NOGIT/source/isaaclab_rl/isaaclab_rl.egg-info/requires.txt
+@@ -10,12 +10,12 @@ pillow==11.2.1
+ packaging<24
+ 
+ [all]
+-gym
+-rsl-rl-lib==3.0.1
+-skrl>=1.4.3
+-rl-games@ git+https://github.com/isaac-sim/rl_games.git@python3.11
+ stable-baselines3>=2.6
++rl-games@ git+https://github.com/isaac-sim/rl_games.git@python3.11
+ rich
++skrl>=1.4.3
++rsl-rl-lib==3.0.1
++gym
+ tqdm
+ 
+ [rl-games]
+diff --git a/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/__pycache__/velocity_env_traquad_cfg.cpython-311.pyc b/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/__pycache__/velocity_env_traquad_cfg.cpython-311.pyc
+index 4b7d884..2ab5dec 100644
+Binary files a/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/__pycache__/velocity_env_traquad_cfg.cpython-311.pyc and b/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/__pycache__/velocity_env_traquad_cfg.cpython-311.pyc differ
+diff --git a/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_traquad_cfg.py b/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_traquad_cfg.py
+index cfa94d0..70c349d 100644
+--- a/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_traquad_cfg.py
++++ b/ISAAC_NOGIT/source/isaaclab_tasks/isaaclab_tasks/manager_based/locomotion/velocity/velocity_env_traquad_cfg.py
+@@ -86,7 +86,7 @@ class MySceneCfg(InteractiveSceneCfg):
+ class CommandsCfg:
+     """Command specifications for the MDP."""
+ 
+-    base_velocity = mdp.UniformVelocityCommandCfg(
++    base_velocity = mdp.ForwardVelocityCommandCfg(
+         asset_name="robot",
+         resampling_time_range=(10.0, 10.0),
+         rel_standing_envs=0.02,
+@@ -94,8 +94,8 @@ class CommandsCfg:
+         heading_command=False,
+         heading_control_stiffness=1.0,
+         debug_vis=True,
+-        ranges=mdp.UniformVelocityCommandCfg.Ranges(
+-            lin_vel_x=(-1.0, 1.0), lin_vel_y=(0.0, 0.0), ang_vel_z=(-1.0, 1.0)
++        ranges=mdp.ForwardVelocityCommandCfg.Ranges(
++            lin_vel_x=(-1.0, 1.0), ang_vel_z=(-1.0, 1.0)
+         ),
+     )
+ 
+@@ -228,11 +228,11 @@ class RewardsCfg:
+     """Reward terms for the MDP."""
+ 
+     # -- task
+-    track_lin_vel_xy_exp = RewTerm(
+-        func=mdp.track_lin_vel_xy_exp, weight=1.0, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
++    track_lin_vel_x_exp = RewTerm(
++        func=mdp.track_lin_vel_x_exp, weight=1.0, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
+     )
+     track_ang_vel_z_exp = RewTerm(
+-        func=mdp.track_ang_vel_z_exp, weight=0.5, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
++        func=mdp.track_ang_vel_z_from_2d_exp, weight=0.5, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
+     )
+     # -- penalties
+     lin_vel_z_l2 = RewTerm(func=mdp.lin_vel_z_l2, weight=-5.0)

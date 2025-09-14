@@ -1,4 +1,4 @@
-# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# Copyright (c) 2022-2025, The Isaac Lab Project Developers.
 # All rights reserved.
 #
 # SPDX-License-Identifier: BSD-3-Clause
@@ -22,6 +22,7 @@ from isaaclab.sensors import ContactSensor, RayCaster
 
 if TYPE_CHECKING:
     from isaaclab.envs import ManagerBasedRLEnv
+import csv
 
 """
 General.
@@ -127,7 +128,33 @@ def body_lin_acc_l2(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEnt
     asset: Articulation = env.scene[asset_cfg.name]
     return torch.sum(torch.norm(asset.data.body_lin_acc_w[:, asset_cfg.body_ids, :], dim=-1), dim=1)
 
+def feet_clearance(
+    env: ManagerBasedRLEnv, command_name: str, sensor_cfg: SceneEntityCfg, target_height: float
+) -> torch.Tensor:
+    """Reward feet clearance.
 
+    This function rewards the agent for lifting its feet off the ground. The reward is computed as the
+    sum of the clearance of the feet from the ground. This ensures that the agent is not sliding its
+    feet on the ground.
+
+    If the commands are small (i.e. the agent is not supposed to take a step), then the reward is zero.
+    """
+    # extract the used quantities (to enable type-hinting)
+    asset: RigidObject = env.scene[sensor_cfg.name]
+    if sensor_cfg is not None:
+        sensor: RayCaster = env.scene[sensor_cfg.name]
+        # Adjust the target height using the sensor data
+        adjusted_target_height = target_height + torch.mean(sensor.data.ray_hits_w[..., 2], dim=1)
+    else:
+        # Use the provided target height directly for flat terrain
+        adjusted_target_height = target_height
+
+    # Compute the L2 squared penalty
+    clearance_penalty = torch.square(asset.data.root_pos_w[:, 2] - adjusted_target_height)
+
+    # no reward for zero command
+    clearance_penalty *= torch.norm(env.command_manager.get_command(command_name)[:, :2], dim=1) > 0.1
+    return clearance_penalty
 """
 Joint penalties.
 """
@@ -140,6 +167,7 @@ def joint_torques_l2(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEn
     """
     # extract the used quantities (to enable type-hinting)
     asset: Articulation = env.scene[asset_cfg.name]
+    
     return torch.sum(torch.square(asset.data.applied_torque[:, asset_cfg.joint_ids]), dim=1)
 
 
@@ -167,6 +195,7 @@ def joint_acc_l2(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEntity
     """
     # extract the used quantities (to enable type-hinting)
     asset: Articulation = env.scene[asset_cfg.name]
+    
     return torch.sum(torch.square(asset.data.joint_acc[:, asset_cfg.joint_ids]), dim=1)
 
 
@@ -174,6 +203,7 @@ def joint_deviation_l1(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = Scene
     """Penalize joint positions that deviate from the default one."""
     # extract the used quantities (to enable type-hinting)
     asset: Articulation = env.scene[asset_cfg.name]
+   
     # compute out of limits constraints
     angle = asset.data.joint_pos[:, asset_cfg.joint_ids] - asset.data.default_joint_pos[:, asset_cfg.joint_ids]
     return torch.sum(torch.abs(angle), dim=1)
@@ -186,6 +216,7 @@ def joint_pos_limits(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = SceneEn
     """
     # extract the used quantities (to enable type-hinting)
     asset: Articulation = env.scene[asset_cfg.name]
+    
     # compute out of limits constraints
     out_of_limits = -(
         asset.data.joint_pos[:, asset_cfg.joint_ids] - asset.data.soft_joint_pos_limits[:, asset_cfg.joint_ids, 0]
@@ -244,8 +275,18 @@ def applied_torque_limits(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg = Sc
 
 def action_rate_l2(env: ManagerBasedRLEnv) -> torch.Tensor:
     """Penalize the rate of change of the actions using L2 squared kernel."""
+    # print("action_wheel", env.action_manager.action[:, 8:12])
+    # print("action_legs", env.action_manager.action[:, :8])
+    
     return torch.sum(torch.square(env.action_manager.action - env.action_manager.prev_action), dim=1)
 
+
+# def action_rate_l2_wheels(env: ManagerBasedRLEnv) -> torch.Tensor:
+#     """Penalize the rate of change of the actions using L2 squared kernel."""
+#     # print("action_wheel", env.action_manager.action[:, 8:12])
+#     # print("action_legs", env.action_manager.action[:, :8])
+    
+#     return torch.sum(torch.square(env.action_manager.action[:, 8:12] - env.action_manager.prev_action[:, 8:12]), dim=1)
 
 def action_l2(env: ManagerBasedRLEnv) -> torch.Tensor:
     """Penalize the actions using L2 squared kernel."""
@@ -266,16 +307,6 @@ def undesired_contacts(env: ManagerBasedRLEnv, threshold: float, sensor_cfg: Sce
     is_contact = torch.max(torch.norm(net_contact_forces[:, :, sensor_cfg.body_ids], dim=-1), dim=1)[0] > threshold
     # sum over contacts for each environment
     return torch.sum(is_contact, dim=1)
-
-
-def desired_contacts(env, sensor_cfg: SceneEntityCfg, threshold: float = 1.0) -> torch.Tensor:
-    """Penalize if none of the desired contacts are present."""
-    contact_sensor: ContactSensor = env.scene.sensors[sensor_cfg.name]
-    contacts = (
-        contact_sensor.data.net_forces_w_history[:, :, sensor_cfg.body_ids, :].norm(dim=-1).max(dim=1)[0] > threshold
-    )
-    zero_contact = (~contacts).all(dim=1)
-    return 1.0 * zero_contact
 
 
 def contact_forces(env: ManagerBasedRLEnv, threshold: float, sensor_cfg: SceneEntityCfg) -> torch.Tensor:
@@ -305,6 +336,7 @@ def track_lin_vel_xy_exp(
         torch.square(env.command_manager.get_command(command_name)[:, :2] - asset.data.root_lin_vel_b[:, :2]),
         dim=1,
     )
+ 
     return torch.exp(-lin_vel_error / std**2)
 
 
@@ -316,4 +348,70 @@ def track_ang_vel_z_exp(
     asset: RigidObject = env.scene[asset_cfg.name]
     # compute the error
     ang_vel_error = torch.square(env.command_manager.get_command(command_name)[:, 2] - asset.data.root_ang_vel_b[:, 2])
+    return torch.exp(-ang_vel_error / std**2)
+
+
+def track_lin_vel_x_exp(
+    env: ManagerBasedRLEnv, std: float, command_name: str, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")
+) -> torch.Tensor:
+    """Reward tracking of forward linear velocity commands (x-axis only) using exponential kernel.
+    
+    This function is designed for non-holonomic robots where the command vector 
+    contains only [vx, wz] without vy component.
+    
+    Args:
+        env: The environment instance
+        std: Standard deviation for the exponential kernel
+        command_name: Name of the command to track
+        asset_cfg: Configuration for the robot asset
+        
+    Returns:
+        torch.Tensor: Exponential reward based on how well the robot's x-velocity matches the command
+    """
+    # extract the used quantities (to enable type-hinting)
+    asset: RigidObject = env.scene[asset_cfg.name]
+    
+    # Get command - first element [0] is vx in the 2D command vector
+    command_vx = env.command_manager.get_command(command_name)[:, 0]
+    
+    # Get actual velocity - x component only
+    actual_vx = asset.data.root_lin_vel_b[:, 0]
+    
+    # Compute the squared error for x velocity only
+    lin_vel_x_error = torch.square(command_vx - actual_vx)
+    
+    # Return exponential reward
+    return torch.exp(-lin_vel_x_error / std**2)
+
+
+def track_ang_vel_z_from_2d_exp(
+    env: ManagerBasedRLEnv, std: float, command_name: str, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")
+) -> torch.Tensor:
+    """Reward tracking of angular velocity commands (yaw) using exponential kernel.
+    
+    This function is designed for non-holonomic robots where the command vector 
+    contains only [vx, wz] without vy component.
+    
+    Args:
+        env: The environment instance
+        std: Standard deviation for the exponential kernel
+        command_name: Name of the command to track
+        asset_cfg: Configuration for the robot asset
+        
+    Returns:
+        torch.Tensor: Exponential reward based on how well the robot's angular velocity matches the command
+    """
+    # extract the used quantities (to enable type-hinting)
+    asset: RigidObject = env.scene[asset_cfg.name]
+    
+    # Get command - second element [1] is wz in the 2D command vector
+    command_wz = env.command_manager.get_command(command_name)[:, 1]
+    
+    # Get actual angular velocity - z component
+    actual_wz = asset.data.root_ang_vel_b[:, 2]
+    
+    # Compute the squared error for angular velocity
+    ang_vel_error = torch.square(command_wz - actual_wz)
+    
+    # Return exponential reward
     return torch.exp(-ang_vel_error / std**2)
