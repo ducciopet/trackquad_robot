@@ -17,6 +17,7 @@ import isaaclab.utils.math as math_utils
 from isaaclab.assets import Articulation
 from isaaclab.managers import CommandTerm
 from isaaclab.markers import VisualizationMarkers
+import math
 
 if TYPE_CHECKING:
     from isaaclab.envs import ManagerBasedEnv

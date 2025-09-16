@@ -86,6 +86,16 @@ TRAQUAD_CFG = ArticulationCfg(
                 "joint.*": 0.0},
             damping={
                 "joint.*": 1.0,},
+        ),
+
+        "ankles": ImplicitActuatorCfg(
+            joint_names_expr=[".*ANKLE"],
+            effort_limit_sim=5.0,
+            velocity_limit_sim=10.0,
+            stiffness={
+                ".*ANKLE": 0.0},
+            damping={
+                ".*ANKLE": 1.0,},
         )},
     soft_joint_pos_limit_factor=0.95,
 )

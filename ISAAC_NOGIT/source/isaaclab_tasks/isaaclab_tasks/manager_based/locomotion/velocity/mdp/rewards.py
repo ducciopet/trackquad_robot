@@ -66,6 +66,43 @@ def feet_air_time_positive_biped(env, command_name: str, threshold: float, senso
     reward *= torch.norm(env.command_manager.get_command(command_name)[:, :2], dim=1) > 0.1
     return reward
 
+def feet_air_time_stuck_recovery(
+    env: ManagerBasedRLEnv, 
+    sensor_cfg: SceneEntityCfg, 
+    threshold: float,
+    stuck_velocity_threshold: float = 0.05,
+    asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")
+) -> torch.Tensor:
+    """Reward long steps taken by the feet when the robot is stuck.
+    
+    This function rewards the agent for taking steps that are longer than a threshold,
+    but only activates when the robot's velocity is very low (stuck condition).
+    This encourages the robot to "unstick" itself by taking deliberate steps.
+    
+    Args:
+        env: The environment instance
+        sensor_cfg: Configuration for the contact sensor to detect foot contacts
+        threshold: Minimum air time required for reward
+        stuck_velocity_threshold: Maximum velocity to consider the robot as stuck
+        asset_cfg: Configuration for the robot asset
+    """
+    # Extract the used quantities (to enable type-hinting)
+    contact_sensor: ContactSensor = env.scene.sensors[sensor_cfg.name]
+    asset = env.scene[asset_cfg.name]
+    
+    # Compute the reward (same as original function)
+    first_contact = contact_sensor.compute_first_contact(env.step_dt)[:, sensor_cfg.body_ids]
+    last_air_time = contact_sensor.data.last_air_time[:, sensor_cfg.body_ids]
+    reward = torch.sum((last_air_time - threshold) * first_contact, dim=1)
+    
+    # Only apply reward when robot is stuck (velocity close to zero)
+    # Get robot's actual velocity (XY plane only)
+    robot_velocity = torch.norm(asset.data.root_lin_vel_w[:, :2], dim=1)
+    
+    # Activate reward when velocity is below threshold (robot is stuck)
+    reward *= (robot_velocity < stuck_velocity_threshold)
+    
+    return reward
 
 def feet_slide(env, sensor_cfg: SceneEntityCfg, asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")) -> torch.Tensor:
     """Penalize feet sliding.
