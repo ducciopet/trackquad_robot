@@ -105,8 +105,10 @@ class ActionsCfg:
     """Action specifications for the MDP."""
 
     joint_pos = mdp.JointPositionActionCfg(asset_name="robot", joint_names= [".*HFE"], scale=0.5, use_default_offset=True)
-    joint_vel = mdp.JointVelocityActionCfg(asset_name="robot", joint_names=["joint_2.*"], scale=40.00, use_default_offset=True)
-
+    joint_vel_LF = mdp.JointVelocityActionGroupCfg(asset_name="robot", joint_names=["joint_1_LEFT_F", "joint_2_LEFT_F", "joint_3_LEFT_F", "joint_4_LEFT_F"], scale=20.0)
+    joint_vel_LH = mdp.JointVelocityActionGroupCfg(asset_name="robot", joint_names=["joint_1_LEFT_H", "joint_2_LEFT_H", "joint_3_LEFT_H", "joint_4_LEFT_H"], scale=20.0)
+    joint_vel_RF = mdp.JointVelocityActionGroupCfg(asset_name="robot", joint_names=["joint_1_RIGHT_F", "joint_2_RIGHT_F", "joint_3_RIGHT_F", "joint_4_RIGHT_F"], scale=20.0)
+    joint_vel_RH = mdp.JointVelocityActionGroupCfg(asset_name="robot", joint_names=["joint_1_RIGHT_H", "joint_2_RIGHT_H", "joint_3_RIGHT_H", "joint_4_RIGHT_H"], scale=20.0)
 
 @configclass
 class ObservationsCfg:
@@ -134,10 +136,10 @@ class ObservationsCfg:
             params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE", "joint_2.*"])},
             noise=Unoise(n_min=-1.5, n_max=1.5))
         
-        joint_test = ObsTerm(
+        """ joint_test = ObsTerm(
             func=mdp.joint_vel_rel,
-            params={"asset_cfg": SceneEntityCfg("robot", joint_names=["joint_4.*"])},
-            noise=Unoise(n_min=-1.5, n_max=1.5))
+            params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*_LEFT_F"])},
+            noise=Unoise(n_min=-1.5, n_max=1.5)) """
         
         actions = ObsTerm(func=mdp.last_action)
         # height_scan = ObsTerm(
@@ -237,7 +239,7 @@ class RewardsCfg:
         func=mdp.track_lin_vel_x_exp, weight=1.0, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
     )
     track_ang_vel_z_exp = RewTerm(
-        func=mdp.track_ang_vel_z_from_2d_exp, weight=0.5, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
+        func=mdp.track_ang_vel_z_from_2d_exp, weight=0.8, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
     )
     # -- penalties
         
@@ -262,7 +264,7 @@ class RewardsCfg:
             "sensor_cfg": SceneEntityCfg("height_scanner"),
         },
     ) """
-    joint_deviation_l1 = RewTerm(func=mdp.joint_deviation_l1, weight=-0.5, params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE"])})
+    joint_deviation_l1 = RewTerm(func=mdp.joint_deviation_l1, weight=-0.8, params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*ANKLE", ".*HFE"])})
 
     # feet_air_time = RewTerm(
     #      func=mdp.feet_air_time,

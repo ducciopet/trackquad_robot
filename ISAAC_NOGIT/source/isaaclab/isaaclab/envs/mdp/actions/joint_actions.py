@@ -259,3 +259,35 @@ class JointEffortAction(JointAction):
     def apply_actions(self):
         # set joint effort targets
         self._asset.set_joint_effort_target(self.processed_actions, joint_ids=self._joint_ids)
+
+class JointVelocityActionGroup(JointAction):
+    """
+    Applies the same velocity command to all joints in a group (e.g., a leg).
+    The policy must provide a single action per group.
+    """
+
+    cfg: actions_cfg.JointVelocityActionGroupCfg
+
+    def __init__(self, cfg: actions_cfg.JointVelocityActionGroupCfg, env: ManagerBasedEnv):
+        super().__init__(cfg, env)
+        if cfg.use_default_offset:
+            self._offset = self._asset.data.default_joint_vel[:, self._joint_ids].clone()
+
+    @property
+    def action_dim(self) -> int:
+        # The policy provides a single action per group
+        return 1
+
+    def process_actions(self, actions: torch.Tensor):
+        # actions: shape (num_envs, 1)
+        self._raw_actions[:] = actions
+        # Repeat the same action for all joints in the group
+        repeated = actions.repeat(1, self._num_joints)  # shape (num_envs, num_joints)
+        self._processed_actions = repeated * self._scale + self._offset
+        if self.cfg.clip is not None:
+            self._processed_actions = torch.clamp(
+                self._processed_actions, min=self._clip[:, :, 0], max=self._clip[:, :, 1]
+            )
+
+    def apply_actions(self):
+        self._asset.set_joint_velocity_target(self.processed_actions, joint_ids=self._joint_ids)
