@@ -1,0 +1,26 @@
+# Checkpoint / model weights
+*.pt
+*.pth
+
+# Training artifacts (rsl_rl / rl_games)
+*.diff
+*.pkl
+events.out.tfevents.*
+*.log
+
+# Hydra outputs
+ISAAC_NOGIT/outputs/
+outputs/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Editor / OS junk
+.~lock.*#
+*~
+*.swp
+/.vscode/
+/.idea/
+.DS_Store

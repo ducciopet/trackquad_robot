@@ -45,6 +45,7 @@ def feet_air_time(
     return reward
 
 
+
 def feet_air_time_positive_biped(env, command_name: str, threshold: float, sensor_cfg: SceneEntityCfg) -> torch.Tensor:
     """Reward long steps taken by the feet for bipeds.
 
@@ -151,3 +152,82 @@ def stand_still_joint_deviation_l1(
     command = env.command_manager.get_command(command_name)
     # Penalize motion when command is nearly zero.
     return mdp.joint_deviation_l1(env, asset_cfg) * (torch.norm(command[:, :2], dim=1) < command_threshold)
+
+
+def joint2_sign_disagreement_one_side(
+    env: "ManagerBasedRLEnv",
+    joint_names: list | tuple | str,
+    asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+) -> torch.Tensor:
+    """
+    Returns 1 when the two joints on one side have opposite sign (velocities),
+    otherwise 0. Works for IsaacLab joint_vel data.
+    """
+    # Ensure joint_names is a list
+    if isinstance(joint_names, str):
+        joint_names = [joint_names]
+
+    # Get asset from scene
+    asset = env.scene[asset_cfg.name]
+    num_envs = asset.num_envs if hasattr(asset, "num_envs") else env.num_envs
+    device = asset.data.joint_vel.device
+
+    # Find the joints in the asset
+    try:
+        joint_ids, _ = asset.find_joints(joint_names, preserve_order=True)
+    except Exception:
+        return torch.zeros(num_envs, device=device)
+
+    # Must have at least 2 joints
+    if len(joint_ids) < 2:
+        return torch.zeros(num_envs, device=device)
+
+    # Read joint velocities (shape: [num_envs, len(joint_ids)])
+    vel = asset.data.joint_vel[:, joint_ids]
+
+    q1 = vel[:, 0]
+    q2 = vel[:, 1]
+
+    # Check sign disagreement → q1*q2 < 0
+    penalty = (q1 * q2 < 0).float()
+
+    return penalty
+
+
+
+def joint2_velocity_difference_penalty_one_side(
+    env: "ManagerBasedRLEnv",
+    joint_names: list | tuple | str,
+    asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+) -> torch.Tensor:
+    """
+    Penalizes the absolute difference between the velocities of two joints on the same side.
+    Penalty = |v1 - v2|
+    Use this function separately for left side and right side.
+    """
+    # normalize input to list
+    if isinstance(joint_names, str):
+        joint_names = [joint_names]
+
+    asset = env.scene[asset_cfg.name]
+    num_envs = asset.num_envs if hasattr(asset, "num_envs") else env.num_envs
+    device = asset.data.joint_vel.device
+
+    # find joints
+    try:
+        joint_ids, _ = asset.find_joints(list(joint_names), preserve_order=True)
+    except Exception:
+        return torch.zeros(num_envs, device=device)
+
+    if len(joint_ids) < 2:
+        return torch.zeros(num_envs, device=device)
+
+    # take velocities
+    vel = asset.data.joint_vel[:, joint_ids]  # (num_envs, 2)
+    v1 = vel[:, 0]
+    v2 = vel[:, 1]
+
+    # penalty = absolute difference
+    penalty = torch.abs(v1 - v2)
+
+    return penalty

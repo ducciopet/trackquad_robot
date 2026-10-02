@@ -95,7 +95,7 @@ class CommandsCfg:
         heading_control_stiffness=1.0,
         debug_vis=True,
         ranges=mdp.ForwardVelocityCommandCfg.Ranges(
-            lin_vel_x=(-1.0, 1.0), ang_vel_z=(-1.0, 1.0)
+            lin_vel_x=(-1, 1), ang_vel_z=(-1, 1)
         ),
     )
 
@@ -105,10 +105,12 @@ class ActionsCfg:
     """Action specifications for the MDP."""
 
     joint_pos = mdp.JointPositionActionCfg(asset_name="robot", joint_names= [".*HFE"], scale=0.5, use_default_offset=True)
-    joint_vel_LF = mdp.JointVelocityActionGroupCfg(asset_name="robot", joint_names=["joint_1_LEFT_F", "joint_2_LEFT_F", "joint_3_LEFT_F", "joint_4_LEFT_F"], scale=20.0)
-    joint_vel_LH = mdp.JointVelocityActionGroupCfg(asset_name="robot", joint_names=["joint_1_LEFT_H", "joint_2_LEFT_H", "joint_3_LEFT_H", "joint_4_LEFT_H"], scale=20.0)
-    joint_vel_RF = mdp.JointVelocityActionGroupCfg(asset_name="robot", joint_names=["joint_1_RIGHT_F", "joint_2_RIGHT_F", "joint_3_RIGHT_F", "joint_4_RIGHT_F"], scale=20.0)
-    joint_vel_RH = mdp.JointVelocityActionGroupCfg(asset_name="robot", joint_names=["joint_1_RIGHT_H", "joint_2_RIGHT_H", "joint_3_RIGHT_H", "joint_4_RIGHT_H"], scale=20.0)
+    joint_vel_LF = mdp.JointVelocityActionGroupCfg(asset_name="robot", joint_names=["joint_1_LEFT_F", "joint_2_LEFT_F", "joint_3_LEFT_F", "joint_4_LEFT_F"], scale=10.0)
+    joint_vel_LH = mdp.JointVelocityActionGroupCfg(asset_name="robot", joint_names=["joint_1_LEFT_H", "joint_2_LEFT_H", "joint_3_LEFT_H", "joint_4_LEFT_H"], scale=10.0)
+    joint_vel_RF = mdp.JointVelocityActionGroupCfg(asset_name="robot", joint_names=["joint_1_RIGHT_F", "joint_2_RIGHT_F", "joint_3_RIGHT_F", "joint_4_RIGHT_F"], scale=10.0)
+    joint_vel_RH = mdp.JointVelocityActionGroupCfg(asset_name="robot", joint_names=["joint_1_RIGHT_H", "joint_2_RIGHT_H", "joint_3_RIGHT_H", "joint_4_RIGHT_H"], scale=10.0)
+    
+
 
 @configclass
 class ObservationsCfg:
@@ -116,6 +118,39 @@ class ObservationsCfg:
 
     @configclass
     class PolicyCfg(ObsGroup):
+        """Observations for policy group."""
+
+        # observation terms (order preserved)
+
+        base_ang_vel = ObsTerm(func=mdp.base_ang_vel, noise=Unoise(n_min=-0.2, n_max=0.2))
+        projected_gravity = ObsTerm(
+            func=mdp.projected_gravity,
+            noise=Unoise(n_min=-0.05, n_max=0.05),
+        )
+        velocity_commands = ObsTerm(func=mdp.generated_commands, params={"command_name": "base_velocity"})
+        joint_pos = ObsTerm(
+            func=mdp.joint_pos_rel,
+            params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE"])},
+            noise=Unoise(n_min=-0.01, n_max=0.01)
+        )
+        joint_vel_HFE = ObsTerm(
+            func=mdp.joint_vel_rel,
+            params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE"])},
+            noise=Unoise(n_min=-0.15, n_max=0.15))
+        
+        joint_vel_joint2 = ObsTerm(
+            func=mdp.joint_vel_rel,
+            params={"asset_cfg": SceneEntityCfg("robot", joint_names=["joint_2.*"])},
+            noise=Unoise(n_min=-0.15, n_max=0.15))
+        
+        actions = ObsTerm(func=mdp.last_action)
+
+        def __post_init__(self):
+            self.enable_corruption = True
+            self.concatenate_terms = True
+
+    @configclass
+    class CriticCfg(ObsGroup):
         """Observations for policy group."""
 
         # observation terms (order preserved)
@@ -131,30 +166,31 @@ class ObservationsCfg:
             params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE"])},
             noise=Unoise(n_min=-0.01, n_max=0.01)
         )
-        joint_vel = ObsTerm(
+        joint_vel_HFE = ObsTerm(
             func=mdp.joint_vel_rel,
-            params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE", "joint_2.*"])},
-            noise=Unoise(n_min=-1.5, n_max=1.5))
+            params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE"])},
+            noise=Unoise(n_min=-0.15, n_max=0.15))
         
-        """ joint_test = ObsTerm(
+        joint_vel_joint2 = ObsTerm(
             func=mdp.joint_vel_rel,
-            params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*_LEFT_F"])},
-            noise=Unoise(n_min=-1.5, n_max=1.5)) """
+            params={"asset_cfg": SceneEntityCfg("robot", joint_names=["joint_2.*"])},
+            noise=Unoise(n_min=-0.15, n_max=0.15))
         
         actions = ObsTerm(func=mdp.last_action)
-        # height_scan = ObsTerm(
-        #     func=mdp.height_scan,
-        #     params={"sensor_cfg": SceneEntityCfg("height_scanner")},
-        #     noise=Unoise(n_min=-0.1, n_max=0.1),
-        #     clip=(-1.0, 1.0),
-        # )
 
+        height_scan = ObsTerm(
+            func=mdp.height_scan,
+            params={"sensor_cfg": SceneEntityCfg("height_scanner")},
+            noise=Unoise(n_min=-0.1, n_max=0.1),
+        ) 
+        
         def __post_init__(self):
-            self.enable_corruption = True
+            self.enable_corruption = False
             self.concatenate_terms = True
 
     # observation groups
     policy: PolicyCfg = PolicyCfg()
+    critic: CriticCfg = CriticCfg()
     
 
 
@@ -168,8 +204,8 @@ class EventCfg:
         mode="startup",
         params={
             "asset_cfg": SceneEntityCfg("robot", body_names=".*"),
-            "static_friction_range": (0.8, 0.8),
-            "dynamic_friction_range": (0.6, 0.6),
+            "static_friction_range": (0.6, 1.3),
+            "dynamic_friction_range": (0.3, 1),
             "restitution_range": (0.0, 0.0),
             "num_buckets": 64,
         },
@@ -236,18 +272,18 @@ class RewardsCfg:
 
     # -- task
     track_lin_vel_x_exp = RewTerm(
-        func=mdp.track_lin_vel_x_exp, weight=1.0, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
+        func=mdp.track_lin_vel_x_exp, weight=1, params={"command_name": "base_velocity", "std": math.sqrt(0.15)}
     )
     track_ang_vel_z_exp = RewTerm(
-        func=mdp.track_ang_vel_z_from_2d_exp, weight=0.8, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
+        func=mdp.track_ang_vel_z_from_2d_exp, weight=0.5, params={"command_name": "base_velocity", "std": math.sqrt(0.25)}
     )
     # -- penalties
         
-    lin_vel_z_l2 = RewTerm(func=mdp.lin_vel_z_l2, weight=-5.0)
+    lin_vel_z_l2 = RewTerm(func=mdp.lin_vel_z_l2, weight=-0.05)
     ang_vel_xy_l2 = RewTerm(func=mdp.ang_vel_xy_l2, weight=-0.05)
     dof_torques_l2 = RewTerm(
         func=mdp.joint_torques_l2, 
-        weight=-1.0e-5,
+        weight=-0.01,
         params={
             "asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE"]),})
     dof_acc_l2 = RewTerm(
@@ -255,26 +291,29 @@ class RewardsCfg:
         weight=-2.5e-7,
         params={
             "asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE"]),})
-    action_rate_l2 = RewTerm(func=mdp.action_rate_l2, weight=-0.01)
-    """ base_height_l2 = RewTerm(
-        func=mdp.base_height_l2, 
-        weight=-0.5,
-        params={
-            "target_height": 0.4,
-            "sensor_cfg": SceneEntityCfg("height_scanner"),
-        },
-    ) """
-    joint_deviation_l1 = RewTerm(func=mdp.joint_deviation_l1, weight=-0.8, params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*ANKLE", ".*HFE"])})
+    action_rate_l2 = RewTerm(func=mdp.action_rate_l2, weight=-0.3)
 
-    # feet_air_time = RewTerm(
-    #      func=mdp.feet_air_time,
-    #      weight=0.125,
-    #      params={
-    #          "sensor_cfg": SceneEntityCfg("contact_forces", body_names="wheel_2.*"),
-    #          "command_name": "base_velocity",
-    #          "threshold": 0.5,
-    #      },
+    # base_height_l2 = RewTerm(
+    #     func=mdp.base_height_l2, 
+    #     weight=-0.5,
+    #     params={
+    #         "target_height": 0.4,
+    #         "sensor_cfg": SceneEntityCfg("height_scanner"),
+    #     },
     # )
+
+    joint_deviation_l1 = RewTerm(func=mdp.joint_deviation_l1, weight=-0.5, params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*HFE"])})
+
+    joint_pos_limits = RewTerm(func=mdp.joint_pos_limits, weight=-20, params={"asset_cfg": SceneEntityCfg("robot", joint_names=[".*ANKLE"])})
+
+    feet_air_time_stuck = RewTerm(
+        func=mdp.feet_air_time_stuck_recovery,
+        weight=0.25,
+        params={
+            "sensor_cfg": SceneEntityCfg("contact_forces", body_names="wheel_2.*"),
+            "threshold": 0.05,
+        },
+    )
 
     # undesired_contacts = RewTerm(
     #     func=mdp.undesired_contacts,
@@ -282,6 +321,51 @@ class RewardsCfg:
     #     params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names="wheel_2.*"), "threshold": 0.1},
     # )
     # -- optional penalties
+
+    wheel_disagreement_L = RewTerm(
+        func=mdp.joint2_sign_disagreement_one_side,
+        params={
+            "joint_names": ["joint_2_LEFT_F", "joint_2_LEFT_H"],
+        },
+        weight=-0.02,
+    )
+
+    wheel_disagreement_R = RewTerm(
+        func=mdp.joint2_sign_disagreement_one_side,
+        params={
+            "joint_names": ["joint_2_RIGHT_F", "joint_2_RIGHT_H"],
+        },
+        weight=-0.02,
+    )
+
+    wheel_vel_difference_L = RewTerm(
+        func=mdp.joint2_velocity_difference_penalty_one_side,
+        params={
+            "joint_names": ["joint_2_LEFT_F", "joint_2_LEFT_H"],
+        },
+        weight=-0.005,
+    )
+
+    wheel_vel_difference_R = RewTerm(
+        func=mdp.joint2_velocity_difference_penalty_one_side,
+        params={
+            "joint_names": ["joint_2_RIGHT_F", "joint_2_RIGHT_H"],
+        },
+        weight=-0.005,
+    )
+
+    """ wheel_penalty = RewTerm(
+    func=mdp.wheel_velocity_tracking_penalty,
+        params={
+            "left_joint_names": ["joint_2_LEFT_F", "joint_2_LEFT_H"],
+            "right_joint_names": ["joint_2_RIGHT_F", "joint_2_RIGHT_H"],
+            "command_name": "base_velocity",
+            "std": math.sqrt(0.2),
+            "wheel_separation": 0.426,
+        },
+        weight=-0.1
+    ) """
+
     flat_orientation_l2 = RewTerm(func=mdp.flat_orientation_l2, weight=0.0)
     dof_pos_limits = RewTerm(func=mdp.joint_pos_limits, weight=0.0)
 
@@ -295,11 +379,11 @@ class TerminationsCfg:
         func=mdp.illegal_contact,
         params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names="base_link"), "threshold": 0.1},
     )
-    base_height = DoneTerm(func=mdp.root_height_below_minimum, params={
+    """ base_height = DoneTerm(func=mdp.root_height_below_minimum, params={
             "minimum_height": 0.15,
             "asset_cfg": SceneEntityCfg("robot"),
         }
-    )
+    ) """
 
 
 

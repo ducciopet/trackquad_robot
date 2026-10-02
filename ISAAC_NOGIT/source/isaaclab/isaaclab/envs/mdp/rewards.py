@@ -415,3 +415,76 @@ def track_ang_vel_z_from_2d_exp(
     
     # Return exponential reward
     return torch.exp(-ang_vel_error / std**2)
+
+def wheel_velocity_tracking_penalty(
+    env: "ManagerBasedRLEnv",
+    left_joint_names: list | tuple | str,
+    right_joint_names: list | tuple | str,
+    command_name: str,
+    std: float,
+    wheel_separation: float,
+    wheel_radius: float = 0.015,
+    asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
+) -> torch.Tensor:
+    """
+    Penalità negativa sullo scostamento tra velocità desiderate e reali
+    delle ruote su lato sinistro e destro. Supporta qualsiasi numero di ruote per lato.
+
+    Args:
+        env: ambiente RL
+        left_joint_names: lista di joint del lato sinistro
+        right_joint_names: lista di joint del lato destro
+        command_name: nome del comando da cui leggere [vx, wz]
+        std: deviazione standard per normalizzazione errore
+        wheel_separation: distanza laterale tra i cingoli/ruote
+        wheel_radius: raggio della ruota (default 0.015m)
+        asset_cfg: configurazione name dell'asset robot
+
+    Returns:
+        torch.Tensor: penalità negativa per environment
+    """
+
+    asset = env.scene[asset_cfg.name]
+    device = asset.data.joint_vel.device
+    num_envs = env.num_envs
+
+    # Normalizzazione input
+    if isinstance(left_joint_names, str):
+        left_joint_names = [left_joint_names]
+    if isinstance(right_joint_names, str):
+        right_joint_names = [right_joint_names]
+
+    # Trova ID dei joint
+    try:
+        left_ids, _ = asset.find_joints(left_joint_names, preserve_order=True)
+        right_ids, _ = asset.find_joints(right_joint_names, preserve_order=True)
+    except Exception:
+        return torch.zeros(num_envs, device=device)
+
+    # Ottieni comandi dal nome specificato
+    cmd = env.command_manager.get_command(command_name)
+    command_vx = cmd[:, 0]
+    command_wz = cmd[:, 1]
+
+    # Velocità desiderate per lato
+    half_L = wheel_separation / 2.0
+    v_des_left = command_vx - command_wz * half_L
+    v_des_right = command_vx + command_wz * half_L
+
+    # Velocità angolari reali (num_envs, n_wheels)
+    w_left = asset.data.joint_vel[:, left_ids]
+    w_right = asset.data.joint_vel[:, right_ids]
+
+    # Conversione in velocità lineare
+    v_left = w_left * wheel_radius
+    v_right = w_right * wheel_radius
+
+    # Errori quadratici
+    err_left = torch.square(v_left - v_des_left.unsqueeze(1))
+    err_right = torch.square(v_right - v_des_right.unsqueeze(1))
+
+    # Somma errori
+    total_error = torch.sum(err_left, dim=1) + torch.sum(err_right, dim=1)
+
+    # Penalità negativa
+    return total_error / (std ** 2)
