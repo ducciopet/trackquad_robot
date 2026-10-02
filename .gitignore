@@ -9,7 +9,7 @@ events.out.tfevents.*
 *.log
 
 # Hydra outputs
-ISAAC_NOGIT/outputs/
+isaaclab_traquad/outputs/
 outputs/
 
 # Python cache
